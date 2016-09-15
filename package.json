@@ -19,10 +19,12 @@
     "babel-preset-react": "^6.11.1",
     "chai": "^3.5.0",
     "css-loader": "^0.25.0",
+    "enzyme": "^2.4.1",
     "jsdom": "^9.5.0",
     "mocha": "^3.0.2",
     "node-sass": "^3.9.3",
     "react-addons-test-utils": "^15.3.1",
+    "redux-devtools": "^3.3.1",
     "sass-loader": "^4.0.2",
     "sinon": "^1.17.5",
     "style-loader": "^0.13.1",
@@ -30,6 +32,8 @@
   },
   "dependencies": {
     "react": "^15.3.1",
-    "react-dom": "^15.3.1"
+    "react-dom": "^15.3.1",
+    "react-redux": "^4.4.5",
+    "redux": "^3.6.0"
   }
 }

@@ -4,6 +4,14 @@ module.exports = {
 		path: __dirname,
 		filename: 'app.js'
 	},
+	resolve: {
+		extensions: ['', '.js', '.jsx'],
+	},
+	externals: {
+		'cheerio': 'window',
+		'react/lib/ExecutionEnvironment': true,
+		'react/lib/ReactContext': true,
+	},
 	module: {
 		loaders: [
 			{

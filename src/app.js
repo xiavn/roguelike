@@ -1,13 +1,6 @@
-import React from 'react';
-import {render} from 'react-dom';
+import React, { Component } from "react";
+import {render} from "react-dom";
+import {Roguelike from "./roguelike";
 require("../main.scss");
 
-class Roguelike extends React.Component {
-	render() {
-		return (
-			<h1>Hello!</h1>
-		);
-	}
-}
-
-render(<Roguelike />, document.getElementById('app'));
+render(<Roguelike/>, document.getElementById("app"));
