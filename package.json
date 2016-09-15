@@ -4,7 +4,8 @@
   "description": "A roguelike dungeon crawler for FreeCodeCamp",
   "main": "./src/app.js",
   "scripts": {
-    "test": "mocha -w test/helpers/browser.js test/*.spec.js"
+    "test": "mocha -w test/helpers/browser.js test/*.spec.js",
+    "start": "webpack-dev-server --color --inline --hot"
   },
   "author": "Lianne Turnbull <lianne.turnbull@gmail.com>",
   "repository": {

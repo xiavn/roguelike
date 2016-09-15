@@ -1,9 +1,16 @@
 import React, { Component } from "react";
+import Header from "./header";
+import Instructions from "./instructions";
+import Display from "./display";
+import Footer from "./footer";
 
-export class Roguelike extends Component {
-	render() {
-		return (
-			<h1>Hello!</h1>
-		);
-	}
-}
+
+const Roguelike = () => 
+	<div className="roguelike">
+		<Header />
+		<Instructions />
+		<Display />
+		<Footer />
+	</div>;
+
+export default Roguelike;
