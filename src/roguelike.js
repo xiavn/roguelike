@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Header from "./header";
 import Instructions from "./instructions";
 import Display from "./display";
