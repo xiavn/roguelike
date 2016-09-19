@@ -22,6 +22,7 @@ describe("<Help_Btn />", () => {
 		expect(wrapper.matchesElement(<button>H</button>)).to.equal(true);
 
 	});
+	it("")
 	//it("should make <Instructions /> visible when clicked", () => {
 	//	const wrapper = shallow(<Help_Btn />);
 	//	wrapper.find("button").simulate("click");
