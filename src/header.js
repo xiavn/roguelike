@@ -2,18 +2,17 @@ import React from "react";
 import { connect } from "react-redux";
 import { showHelp } from "./redux/actions/helptext";
 
-const Header = () => 
+export const Header = () => 
 	<header>
 		<Title />
 		<Help_Btn />
 	</header>;
 
-const Title = () =>
+export const Title = () =>
 	<h1>Title</h1>;
 
-class Help_Btn extends React.Component {
+export class Help_Btn extends React.Component {
 	toggleInstructions() {
-		console.log("Yes!");
 		this.props.dispatch(showHelp(true));
 	}
 	render() {
@@ -23,7 +22,4 @@ class Help_Btn extends React.Component {
 	}
 }
 
-Help_Btn = connect()(Help_Btn);
-
-export default Header;
-export { Title, Help_Btn };
+export default connect()(Help_Btn);
