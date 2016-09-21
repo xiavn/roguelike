@@ -3,7 +3,6 @@ import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
 import { mount, shallow } from "enzyme";
 import {expect} from "chai";
-import { spy } from "sinon";
 
 import reducer from "../src/redux/reducers/helptext";
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-const Instructions = () => 
+export const Instructions = () => 
 	<div>Instructions</div>;
 
 export default Instructions;
