@@ -11,7 +11,7 @@ describe("<Instructions />", () => {
 		};
 		const wrapper = shallow(<Instructions {...props} />);
 
-		expect(wrapper.hasClass("visible")).to.equal(false);
+		expect(wrapper.hasClass("hidden")).to.equal(true);
 		wrapper.setProps({shouldDisplay: true});
 		expect(wrapper.hasClass("visible")).to.equal(true);
 	});

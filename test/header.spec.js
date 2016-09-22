@@ -6,7 +6,8 @@ import {expect} from "chai";
 
 import reducer from "../src/redux/reducers/helptext";
 
-import ConnectedHelp_Btn, { Header, Title, Help_Btn } from "../src/header";
+import { Header, Title } from "../src/header";
+import ConnectedHelp_Btn, { Help_Btn } from "../src/help_btn";
 
 describe("<Header />", () => {
 	it("should render Title & Help_Btn", () => {
@@ -14,7 +15,7 @@ describe("<Header />", () => {
 
 		expect(wrapper.containsAllMatchingElements([
 			<Title/>,
-			<Help_Btn/>])).to.equal(true);
+			<ConnectedHelp_Btn/>])).to.equal(true);
 	});
 });
 

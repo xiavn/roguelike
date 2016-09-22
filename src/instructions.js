@@ -1,6 +1,19 @@
-import React from "react";
+import React, { PropTypes } from "react";
+import { connect } from "react-redux";
 
-export const Instructions = () => 
-	<div>Instructions</div>;
+export const Instructions = ({ shouldDisplay }) => {
+	const display = shouldDisplay ? "visible" : "hidden";
+	return <div className={display}>Instructions</div>;
+};
 
-export default Instructions;
+Instructions.propTypes = {
+	shouldDisplay: PropTypes.bool.isRequired
+};
+
+const mapStateToProps = (state) => {
+	return {
+		shouldDisplay: state.showHelp
+	};
+};
+
+export default connect(mapStateToProps)(Instructions);
