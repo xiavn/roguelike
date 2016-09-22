@@ -1,3 +1,5 @@
+var autoprefixer = require('autoprefixer');
+
 module.exports = {
 	entry: './src/app.js',
 	output: {
@@ -24,8 +26,9 @@ module.exports = {
 			},
 			{
 				test: /\.scss$/,
-				loaders: ["style", "css", "sass"]
+				loaders: ["style", "css", "postcss-loader", "sass"]
 			}
 		]
-	}
+	},
+	postcss: [ autoprefixer ]
 };
