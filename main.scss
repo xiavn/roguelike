@@ -4,5 +4,9 @@ body {
 }
 
 .visibile {
-	width: 200px;
+	display: inherit;
+}
+
+.hidden {
+	display: none;
 }
