@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { showHelp } from "./redux/actions/helptext";
+import { showHelp } from "../redux/actions/helptext";
 
 export class Help_Btn extends React.Component {
 	toggleInstructions() {

@@ -3,9 +3,9 @@ import { mount, shallow } from 'enzyme';
 import {expect} from 'chai';
 
 import Roguelike from "../src/roguelike";
-import { Header } from "../src/header";
+import { Header } from "../src/header/header";
 import Instructions from "../src/instructions";
-import Display from "../src/display";
+import Display from "../src/display/display";
 import Footer from "../src/footer";
 
 describe("<Roguelike/>", () => {

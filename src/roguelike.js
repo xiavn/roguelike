@@ -1,7 +1,7 @@
 import React from "react";
-import { Header } from "./header";
+import { Header } from "./header/header";
 import Instructions from "./instructions";
-import Display from "./display";
+import Display from "./display/display";
 import Footer from "./footer";
 
 

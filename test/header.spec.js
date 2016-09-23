@@ -6,8 +6,8 @@ import {expect} from "chai";
 
 import reducer from "../src/redux/reducers/helptext";
 
-import { Header, Title } from "../src/header";
-import ConnectedHelp_Btn, { Help_Btn } from "../src/help_btn";
+import { Header, Title } from "../src/header/header";
+import ConnectedHelp_Btn, { Help_Btn } from "../src/header/help_btn";
 
 describe("<Header />", () => {
 	it("should render Title & Help_Btn", () => {
