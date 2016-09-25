@@ -42,6 +42,13 @@ describe("<PlayerStats />", () => {
 		expect(listItems.length).to.equal(playerStatItems.length);
 	});
 	it("should give a key to each item in the list", () => {
-		//tems.forEach
+		listItems.forEach((item, index) => {
+			let key = playerStatItems[index];
+			expect(item.key()).to.equal(key);
+		});
+	});
+	it("should display a list of items for Inventory", () => {
+		const inventory = listItems.find("li key='inventory'");
+		expect(inventory.contains("ul")).to.equal(true);
 	});
 });
