@@ -2,21 +2,21 @@ import React from "react";
 import { shallow } from "enzyme";
 import {expect} from "chai";
 
-import PlayerStats from "../src/display/playerStats";
+import PlayerStats, { StatsSubList } from "../src/display/playerStats";
 
 describe("<PlayerStats />", () => {
 	const playerStats = {
 			name: "Vincent the Unready",
-			class: "Wizard",
-			level: "1",
+			class: "mage",
+			level: 1,
 			health: {
 				total: 12,
 				current: 4
 			},
 			resource: {
 				type: "mana",
-				total: "6",
-				current: "3"
+				total: 6,
+				current: 3
 			},
 			inventory: [
 				{
@@ -30,6 +30,12 @@ describe("<PlayerStats />", () => {
 				{
 					item: "Magic Ring of Floating",
 					amount: 1
+				}
+			],
+			abilities: [
+				{
+					name: "Whirlwind",
+					cooldown: 5
 				}
 			]
 		},
@@ -47,8 +53,7 @@ describe("<PlayerStats />", () => {
 			expect(item.key()).to.equal(key);
 		});
 	});
-	it("should display a list of items for Inventory", () => {
-		const inventory = listItems.find("li key='inventory'");
-		expect(inventory.contains("ul")).to.equal(true);
+	it("should contain two sub lists - inventory and abilities", () => {
+		expect(wrapper.find(StatsSubList)).to.have.length(2);
 	});
 });

@@ -2,20 +2,20 @@ import React, { PropTypes } from "react";
 
 import {classOptions} from "../options";
 
-const PlayerStats = ( { playerStats }) => 
+const PlayerStats = ( { playerStats } ) => 
 	<ul>
 		<li key="name" >Name: { playerStats.name }</li>
 		<li key="class" >Class: Barbarian</li>
 		<li key="level" >Level: 1</li>
 		<li key="health" >Health: 17/24</li>
 		<li key="resource" >Resource: 4/4</li>
-		<li key="inventory" >Inventory:
-			<ul>
-				<li>Health Potion</li>
-				<li>Shiny Sword</li>
-				<li>Wooden Shield</li>
-			</ul>
+		<li key="inventory" >
+			<StatsSubList stat={playerStats.inventory} />
 		</li>
+		<li key="abilities" >
+			<StatsSubList stat={playerStats.abilities} />
+		</li>
+
 	</ul>;
 
 PlayerStats.propTypes = {
@@ -32,9 +32,23 @@ PlayerStats.propTypes = {
 			current: PropTypes.number.isRequired,
 			total: PropTypes.number.isRequired
 		}).isRequired,
-		inventory: PropTypes.arrayOf(PropTypes.number)
+		inventory: PropTypes.arrayOf(PropTypes.object),
+		abilities: PropTypes.arrayOf(PropTypes.object)
 	}).isRequired
 };
 
+const StatsSubList = ( {stat} ) => {
+	<ul>
+		<li>Shield</li>
+		<li>Sword</li>
+		<li>Potion</li>
+	</ul>
+};
+
+StatsSubList.propTypes = {
+	stat: PropTypes.arrayOf(PropTypes.object)
+}
+
 export default PlayerStats;
 
+export { StatsSubList };
