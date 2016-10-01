@@ -6,26 +6,26 @@ import reducer from "../src/redux/reducers/playerStats";
 
 describe("saveName", () => {
 	it("should create an action to save the player's name", () => {
-		const text = "Rager the Bold";
+		const name = "Rager the Bold";
 		const expectedAction = {
 			type: types.SAVE_NAME,
-			text
+			name
 		};
 
-		expect(actions.saveName(text)).to.eql(expectedAction);
+		expect(actions.saveName(name)).to.eql(expectedAction);
 	});
 });
 
-describe("saveName reducer", () => {
+describe("playerStats reducer", () => {
 	it("should return the initial state", () => {
 		expect(
 			reducer(undefined, {})
-		).to.eql(false);
+		).to.eql({});
 	});
 
 	it("should handle SAVE_NAME", () => {
 		expect(
-			reducer(false, {
+			reducer(undefined, {
 				type: types.SAVE_NAME,
 				name: "Rager the Bold"
 			})

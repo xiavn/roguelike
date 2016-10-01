@@ -2,9 +2,9 @@ import React from "react";
 import { shallow } from "enzyme";
 import {expect} from "chai";
 
-import PlayerStats, { StatsSubList } from "../src/display/playerStats";
+import PlayerStats, { StatsSubList, PlayerStatsList } from "../src/display/playerStats";
 
-describe("<PlayerStats />", () => {
+describe("<PlayerStatsList />", () => {
 	const playerStats = {
 			name: "Vincent the Unready",
 			class: "mage",
@@ -41,7 +41,7 @@ describe("<PlayerStats />", () => {
 		},
 		playerStatItems = Object.getOwnPropertyNames(playerStats);
 
-	const wrapper = shallow(<PlayerStats playerStats={playerStats} />),
+	const wrapper = shallow(<PlayerStatsList playerStats={playerStats} />),
 		listItems = wrapper.children();
 	it("should display an unordered list containing player stats", () => {
 		expect(wrapper.is("ul")).to.equal(true);

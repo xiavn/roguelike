@@ -1,8 +1,9 @@
 import React, { PropTypes } from "react";
+import { connect } from "react-redux";
 
 import {classOptions} from "../options";
 
-const PlayerStats = ( { playerStats } ) => 
+const PlayerStatsList = ( { playerStats } ) => 
 	<ul>
 		<li key="name" >Name: { playerStats.name }</li>
 		<li key="class" >Class: Barbarian</li>
@@ -18,7 +19,7 @@ const PlayerStats = ( { playerStats } ) =>
 
 	</ul>;
 
-PlayerStats.propTypes = {
+PlayerStatsList.propTypes = {
 	playerStats: PropTypes.shape({
 		name: PropTypes.string.isRequired,
 		class: PropTypes.oneOf(classOptions.classes).isRequired,
@@ -47,8 +48,16 @@ const StatsSubList = ( {stat} ) => {
 
 StatsSubList.propTypes = {
 	stat: PropTypes.arrayOf(PropTypes.object)
-}
+};
+
+const mapStateToProps = (state) => {
+	return {
+		playerStats: state.playerStats
+	};
+};
+
+const PlayerStats = connect(mapStateToProps)(PlayerStatsList);
 
 export default PlayerStats;
 
-export { StatsSubList };
+export { StatsSubList, PlayerStatsList };
