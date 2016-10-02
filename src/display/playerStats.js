@@ -39,11 +39,10 @@ PlayerStatsList.propTypes = {
 };
 
 const StatsSubList = ( {stat} ) => {
-	<ul>
-		<li>Shield</li>
-		<li>Sword</li>
-		<li>Potion</li>
-	</ul>
+	const subList = stat.map((item) => {
+		return <li key={item.name}><span className="statName">{item.name}</span><span className="statItem">{item.value}</span></li>;
+	});
+	return <ul>{subList}</ul>;
 };
 
 StatsSubList.propTypes = {

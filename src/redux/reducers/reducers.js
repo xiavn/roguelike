@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
 import showHelp from "./helptext";
-import saveName from "./playerStats";
+import playerStats from "./playerStats";
 
 const roguelike = combineReducers({
 	showHelp,
-	saveName
+	playerStats
 });
 
 export default roguelike;

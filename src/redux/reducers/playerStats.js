@@ -1,26 +1,36 @@
 import { SAVE_NAME } from "../actions/actionTypes";
 
-const initialState = {
+export const initialState = {
 	name: "",
-	class: "",
+	class: "fighter",
 	level: 1,
 	health: {
 		total: 0,
 		current: 0
 	},
 	resource: {
-		type: "mana",
-		total: 6,
-		current: 3
+		type: "rage",
+		total: 0,
+		current: 0
 	},
-	inventory: [],
-	abilities: []
-}
+	inventory: [
+		{
+			name: "Health Potion",
+			value: 5
+		},
+	],
+	abilities: [
+		{
+			name: "Whirlwind",
+			value: 5
+		}
+	]
+};
 
 export default function playerStats(state = initialState , action) {
 	switch (action.type) {
 	case SAVE_NAME:
-		return  action.name;
+		return  { ...state, name: action.name };
 	default:
 		return state;
 	}

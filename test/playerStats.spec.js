@@ -20,22 +20,22 @@ describe("<PlayerStatsList />", () => {
 			},
 			inventory: [
 				{
-					item: "Health Potion",
-					amount: 5
+					name: "Health Potion",
+					value: 5
 				},
 				{
-					item: "Yew Wand",
-					amount: 1
+					name: "Yew Wand",
+					value: 1
 				},
 				{
-					item: "Magic Ring of Floating",
-					amount: 1
+					name: "Magic Ring of Floating",
+					value: 1
 				}
 			],
 			abilities: [
 				{
 					name: "Whirlwind",
-					cooldown: 5
+					value: 5
 				}
 			]
 		},
@@ -55,5 +55,16 @@ describe("<PlayerStatsList />", () => {
 	});
 	it("should contain two sub lists - inventory and abilities", () => {
 		expect(wrapper.find(StatsSubList)).to.have.length(2);
+	});
+
+	describe("<StatsSubList />", () => {
+		it("should output a list of stats from an array of objects", () => {
+			const stat = playerStats.abilities;
+			const wrapper = shallow(<StatsSubList stat={stat} />),
+				listItems = wrapper.children();
+
+			expect(wrapper.is("ul")).to.equal(true);
+			expect(listItems.length).to.equal(stat.length);
+		});
 	});
 });

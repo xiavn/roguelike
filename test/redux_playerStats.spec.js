@@ -3,6 +3,7 @@ import {expect} from "chai";
 import * as actions from "../src/redux/actions/playerStats";
 import * as types from "../src/redux/actions/actionTypes";
 import reducer from "../src/redux/reducers/playerStats";
+import { initialState } from "../src/redux/reducers/playerStats";
 
 describe("saveName", () => {
 	it("should create an action to save the player's name", () => {
@@ -20,7 +21,7 @@ describe("playerStats reducer", () => {
 	it("should return the initial state", () => {
 		expect(
 			reducer(undefined, {})
-		).to.eql({});
+		).to.eql(initialState);
 	});
 
 	it("should handle SAVE_NAME", () => {
@@ -29,6 +30,6 @@ describe("playerStats reducer", () => {
 				type: types.SAVE_NAME,
 				name: "Rager the Bold"
 			})
-		).to.eql("Rager the Bold");
+		).to.eql( { ...initialState, name: "Rager the Bold" });
 	});
 });
