@@ -1,15 +1,16 @@
-import { SAVE_NAME } from "../actions/actionTypes";
+import { SAVE_NAME, SAVE_CLASS } from "../actions/actionTypes";
+import character from "../../helpers/characterSetup";
 
 export const initialState = {
-	name: "",
-	class: "fighter",
+	name: "Wheezer the Crazy",
+	class: character.class,
 	level: 1,
 	health: {
 		total: 0,
 		current: 0
 	},
 	resource: {
-		type: "rage",
+		type: character.resource,
 		total: 0,
 		current: 0
 	},
@@ -33,5 +34,7 @@ export default function playerStats(state = initialState , action) {
 		return  { ...state, name: action.name };
 	default:
 		return state;
+	case SAVE_CLASS:
+		return { ...state, class: action.pClass };
 	}
 }

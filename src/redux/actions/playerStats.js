@@ -6,3 +6,10 @@ export const saveName = (name) => {
 		name
 	};
 };
+
+export const saveClass = (pClass) => {
+	return {
+		type: types.SAVE_CLASS,
+		pClass
+	};
+};

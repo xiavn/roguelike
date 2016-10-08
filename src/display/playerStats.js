@@ -6,10 +6,10 @@ import {classOptions} from "../options";
 const PlayerStatsList = ( { playerStats } ) => 
 	<ul>
 		<li key="name" >Name: { playerStats.name }</li>
-		<li key="class" >Class: Barbarian</li>
-		<li key="level" >Level: 1</li>
-		<li key="health" >Health: 17/24</li>
-		<li key="resource" >Resource: 4/4</li>
+		<li key="class" >Class: { playerStats.class }</li>
+		<li key="level" >Level: { playerStats.level }</li>
+		<li key="health" >Health: { playerStats.health.current }/{ playerStats.health.total }</li>
+		<li key="resource" >{ playerStats.resource.type}: { playerStats.resource.current }/{ playerStats.resource.total }</li>
 		<li key="inventory" >
 			<StatsSubList stat={playerStats.inventory} />
 		</li>

@@ -17,6 +17,18 @@ describe("saveName", () => {
 	});
 });
 
+describe("saveClass", () => {
+	it("should create an action to save the player's class", () => {
+		const pClass = "Rager the Bold";
+		const expectedAction = {
+			type: types.SAVE_CLASS,
+			pClass
+		};
+
+		expect(actions.saveClass(pClass)).to.eql(expectedAction);
+	});
+});
+
 describe("playerStats reducer", () => {
 	it("should return the initial state", () => {
 		expect(
@@ -33,3 +45,4 @@ describe("playerStats reducer", () => {
 		).to.eql( { ...initialState, name: "Rager the Bold" });
 	});
 });
+
