@@ -13,3 +13,10 @@ export const saveClass = (pClass) => {
 		pClass
 	};
 };
+
+export const increaseLevel = (by) => {
+	return {
+		type: types.CHANGE_LEVEL,
+		by
+	};
+};

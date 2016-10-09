@@ -1,4 +1,4 @@
-import { SAVE_NAME, SAVE_CLASS } from "../actions/actionTypes";
+import { SAVE_NAME, SAVE_CLASS, CHANGE_LEVEL } from "../actions/actionTypes";
 import character from "../../helpers/characterSetup";
 
 export const initialState = {
@@ -32,9 +32,13 @@ export default function playerStats(state = initialState , action) {
 	switch (action.type) {
 	case SAVE_NAME:
 		return  { ...state, name: action.name };
-	default:
-		return state;
 	case SAVE_CLASS:
 		return { ...state, class: action.pClass };
+	case CHANGE_LEVEL:
+		return {...state, level: state.level+action.by };
+
+	default:
+		return state;
+
 	}
 }

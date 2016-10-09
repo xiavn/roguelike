@@ -8,7 +8,7 @@ class Character {
 
 	}
 	get resource() {
-		return options.classResource[this.class];
+		return options.classStats[this.class].resource;
 	}
 }
 
