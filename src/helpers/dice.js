@@ -9,7 +9,6 @@ const diceRoller = (dice) => {
 			die = parseInt(elements[2]);
 		let amount = elements[1] === "" ? 1 : parseInt(elements[1]),
 			total = 0;
-
 		while (amount > 0) {
 			const rolled = getDieValue(die);
 			total += rolled;
@@ -21,7 +20,7 @@ const diceRoller = (dice) => {
 
 	let total = 0;
 	const diceTrimmed = dice.replace(/\s/g, ""),
-		diceRolls = diceTrimmed.replace(/\d*d{1}\d+/ig, parseDice(dice));
+		diceRolls = diceTrimmed.replace(/\d*d{1}\d+/ig, parseDice);
 	total = eval(diceRolls);
 
 	return total;
