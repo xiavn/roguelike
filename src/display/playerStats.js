@@ -9,6 +9,9 @@ const PlayerStatsList = ( { playerStats } ) =>
 		<li key="class" >Class: { playerStats.class }</li>
 		<li key="level" >Level: { playerStats.level }</li>
 		<li key="health" >Health: { playerStats.health.current }/{ playerStats.health.total }</li>
+		<li key="attributes" >
+			<StatsSubList stat={ playerStats.attributes } />
+		</li>
 		<li key="resource" >{ playerStats.resource.type}: { playerStats.resource.current }/{ playerStats.resource.total }</li>
 		<li key="inventory" >
 			<StatsSubList stat={playerStats.inventory} />

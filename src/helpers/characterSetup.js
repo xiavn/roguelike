@@ -11,14 +11,13 @@ class Character {
 		return options.classStats[this.class].resource;
 	}
 	get attributes() {
-		let attributes = {};
 		const classStats = options.classStats[this.class];
-		options.attributes.forEach((att) => {
+		let attributes = options.attributes.map((att) => {
 			let value = diceRoller("1d4 + 1");
 			if (classStats.hasOwnProperty(att)) {
 				value += classStats[att];
 			}
-			attributes[att] = value;
+			return { name: att, value: value };
 		});
 		return attributes;
 	}

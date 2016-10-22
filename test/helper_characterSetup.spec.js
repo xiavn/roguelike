@@ -3,7 +3,7 @@ import { expect } from "chai";
 import character from "../src/helpers/characterSetup";
 import { classOptions } from "../src/options";
 
-describe("character", () => {
+describe("Helper - Character", () => {
 	const options = classOptions;
 	describe(".class", () => {
 		it("should return a random class", () => {
@@ -17,12 +17,16 @@ describe("character", () => {
 		});
 	});
 	describe(".attributes", () => {
-		it("is an object with a key value pair for each attribute", () => {
+		it("is an array of objects with an attribute name and value", () => {
 			const attributes = options.attributes;
 			attributes.forEach(function(att) {
-				expect(character.attributes).to.have.property(att)
-					.that.is.a('number');
-			})
+				function findAtt(attributes) {
+					return attributes.name === att;
+				}
+				expect(character.attributes.find(findAtt)).to.have.property("name", att);
+				expect(character.attributes.find(findAtt)).to.have.property("value")
+					.that.is.a("number");			
+			});
 		});
-	})
+	});
 });
