@@ -16,17 +16,32 @@ describe("Helper - Character", () => {
 			expect(character.resource).to.equal(options.classStats[charClass].resource);
 		});
 	});
-	describe(".attributes", () => {
-		it("is an array of objects with an attribute name and value", () => {
-			const attributes = options.attributes;
-			attributes.forEach(function(att) {
-				function findAtt(attributes) {
-					return attributes.name === att;
-				}
-				expect(character.attributes.find(findAtt)).to.have.property("name", att);
-				expect(character.attributes.find(findAtt)).to.have.property("value")
-					.that.is.a("number");			
+	describe(".combinedAttributes", () => {
+		describe(".attributes", () => {
+			const charAtt = character.combinedAttributes;
+			it("is an object with a key and value pair for each attribute", () => {
+				const attributes = options.attributes;
+				attributes.forEach(function(att) {
+					expect(charAtt.attributes).to.have.property(att)
+						.that.is.a("number");			
+				});
+			});
+
+			it("produces a value for each attribute that is 1d4+1 plus class bonuses (-1 -> 2)", () => {
+				options.attributes.forEach(function(att) {
+					expect(charAtt.attributes[att]).to.be.within(1,7);
+				});
 			});
 		});
+		
+		
 	});
+	// describe(".health", () => {
+	// 	it("is an object with a total and current", () => {
+	// 		expect(character.health).to.have.property("total")
+	// 				.that.is.a("number");
+	// 		expect(character.health).to.have.property("current")
+	// 				.that.is.a("number");	
+	// 	});
+	// });
 });

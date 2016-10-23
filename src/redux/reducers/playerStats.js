@@ -9,7 +9,7 @@ export const initialState = {
 		total: 0,
 		current: 0
 	},
-	attributes: character.attributes,
+	attributes: character.combinedAttributes.attributes,
 	resource: {
 		type: character.resource,
 		total: 0,

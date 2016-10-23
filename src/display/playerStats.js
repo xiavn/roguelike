@@ -31,6 +31,7 @@ PlayerStatsList.propTypes = {
 			current: PropTypes.number.isRequired,
 			total: PropTypes.number.isRequired
 		}).isRequired,
+		attributes: PropTypes.object.isRequired,
 		resource: PropTypes.shape({
 			type: PropTypes.oneOf(classOptions.resources).isRequired,
 			current: PropTypes.number.isRequired,
@@ -42,14 +43,24 @@ PlayerStatsList.propTypes = {
 };
 
 const StatsSubList = ( {stat} ) => {
-	const subList = stat.map((item) => {
-		return <li key={item.name}><span className="statName">{item.name}</span><span className="statItem">{item.value}</span></li>;
-	});
+	let subList = [];
+	if (Array.isArray(stat)) {
+		subList = stat.map((item) => {
+			return <li key={item.name}><span className="statName">{item.name}</span><span className="statItem">{item.value}</span></li>;
+		});
+	} else {
+		for (var item in stat) {
+			subList.push(<li key={item}><span className="statName">{item}</span><span className="statItem">{stat[item]}</span></li>);
+		}
+	}
 	return <ul>{subList}</ul>;
 };
 
 StatsSubList.propTypes = {
-	stat: PropTypes.arrayOf(PropTypes.object)
+	stat: PropTypes.oneOfType([
+		PropTypes.object,
+		PropTypes.array
+	])
 };
 
 const mapStateToProps = (state) => {

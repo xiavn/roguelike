@@ -10,16 +10,26 @@ class Character {
 	get resource() {
 		return options.classStats[this.class].resource;
 	}
-	get attributes() {
+
+	get combinedAttributes() {
 		const classStats = options.classStats[this.class];
-		let attributes = options.attributes.map((att) => {
-			let value = diceRoller("1d4 + 1");
+		let attributes = {};
+		options.attributes.forEach((att) => {
+			let value = diceRoller("1d4 + 1", att);
 			if (classStats.hasOwnProperty(att)) {
 				value += classStats[att];
 			}
-			return { name: att, value: value };
+			attributes[att] = value;
 		});
-		return attributes;
+		let combined = {
+			attributes: attributes
+		}
+		return combined;
+	}
+
+	set health(constitution) {
+		const total = diceRoller(options.classStats[this.class].health, "health") + constitution;
+		return { total: total, current: total};
 	}
 }
 
