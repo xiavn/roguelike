@@ -10,15 +10,9 @@ describe("Helper - Character", () => {
 			expect(character.class).to.be.oneOf(options.classes);
 		});
 	});
-	describe(".resource", () => {
-		it("should return the resource for the class", () => {
-			const charClass = character.class;
-			expect(character.resource).to.equal(options.classStats[charClass].resource);
-		});
-	});
 	describe(".combinedAttributes", () => {
+		const charAtt = character.combinedAttributes;
 		describe(".attributes", () => {
-			const charAtt = character.combinedAttributes;
 			it("is an object with a key and value pair for each attribute", () => {
 				const attributes = options.attributes;
 				attributes.forEach(function(att) {
@@ -33,15 +27,31 @@ describe("Helper - Character", () => {
 				});
 			});
 		});
+		describe(".derived", () => {
+			it("contains health and resource stats", () => {
+				expect(charAtt.derived).to.have.property('health');
+				expect(charAtt.derived).to.have.property('resource');
+			});
+			describe(".health", () => {
+				it("is an object with a total and current", () => {
+					expect(charAtt.derived.health).to.have.property("total")
+							.to.be.a("number");
+					expect(charAtt.derived.health).to.have.property("current")
+							.that.is.a("number");	
+				});
+			});
+			describe(".resource", () => {
+				it("is an object with a type, total and current", () => {
+					expect(charAtt.derived.resource).to.have.property("type")
+							.that.is.oneOf(options.resources);
+					expect(charAtt.derived.resource).to.have.property("total")
+							.that.is.a("number");
+					expect(charAtt.derived.resource).to.have.property("current")
+							.that.is.a("number");	
+				});
+			});
+		});
 		
 		
 	});
-	// describe(".health", () => {
-	// 	it("is an object with a total and current", () => {
-	// 		expect(character.health).to.have.property("total")
-	// 				.that.is.a("number");
-	// 		expect(character.health).to.have.property("current")
-	// 				.that.is.a("number");	
-	// 	});
-	// });
 });
