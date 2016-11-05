@@ -1,4 +1,4 @@
-const diceRoller = (dice, message) => {
+const diceRoller = (dice) => {
 
 	const getDieValue = (die) => {
 		return Math.floor(Math.random() * die) + 1;
@@ -22,7 +22,6 @@ const diceRoller = (dice, message) => {
 	const diceTrimmed = dice.replace(/\s/g, ""),
 		diceRolls = diceTrimmed.replace(/\d*d{1}\d+/ig, parseDice);
 	total = eval(diceRolls);
-	console.log(`${message}${total}`);
 	return total;
 };
 

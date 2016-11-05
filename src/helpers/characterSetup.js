@@ -12,7 +12,7 @@ class Character {
 		let attributes = {};
 		//Generate a set or random attributes: 1d4+1 + class bonus
 		options.attributes.forEach((att) => {
-			let value = diceRoller("1d4 + 1", `${att}: `);
+			let value = diceRoller("1d4 + 1");
 			if (classStats.hasOwnProperty(att)) {
 				value += classStats[att];
 			}
@@ -49,7 +49,7 @@ class Character {
 				total: rsTotal,
 				current: rsCurrent
 			}
-		}
+		};
 		let combined = {
 			attributes: attributes,
 			derived: derived
