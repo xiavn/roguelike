@@ -4,10 +4,9 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import roguelike from "./redux/reducers/reducers";
 import Roguelike from "./roguelike";
-import { showHelp } from "./redux/actions/helptext";
 require("../main.scss");
 
-let store = createStore(roguelike);
+export let store = createStore(roguelike, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 render(
 	<Provider store={store}>

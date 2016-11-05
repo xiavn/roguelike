@@ -4,7 +4,7 @@ module.exports = {
 	entry: './src/app.js',
 	output: {
 		path: __dirname,
-		filename: 'app.js'
+		filename: 'main.js'
 	},
 	resolve: {
 		extensions: ['', '.js', '.jsx'],
