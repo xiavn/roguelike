@@ -1,15 +1,15 @@
 import React, { PropTypes } from "react";
 import { connect } from "react-redux";
 
-export const DungeonLog = ({ log }) => {
-	const messages = log.map((message, i) => {
+export const DungeonLog = ({ messageLog }) => {
+	const messages = messageLog.map((message, i) => {
 		return <DungeonLogMessage message={message} />;
 	});
-	return <div class="dungeonLog"><ul>{messages}</ul></div>;
+	return <div className="dungeonLog"><h3>Message Log</h3><ul>{messages}</ul></div>;
 };
 
 DungeonLog.propTypes = {
-	log: PropTypes.array.isRequired
+	messageLog: PropTypes.array.isRequired
 };
 
 export const DungeonLogMessage = ({ message }) => 
@@ -24,7 +24,7 @@ DungeonLogMessage.propTypes = {
 
 const mapStateToProps = (state) => {
 	return {
-		log: state.log
+		messageLog: state.messageLog
 	};
 };
 

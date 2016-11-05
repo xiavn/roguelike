@@ -29,7 +29,7 @@ describe("<Display />", () => {
 	});
 	describe("<DungeonLog />", () => {
 		const props = {
-			log: [
+			messageLog: [
 				{
 					type: "diceRoll",
 					text: "strength: 4"
@@ -46,14 +46,14 @@ describe("<Display />", () => {
 		};
 		it("should render a DungeonLogMessage for each message passed in", () => {
 			const wrapper = shallow(<DungeonLog {...props} />);
-			expect(wrapper.find(DungeonLogMessage)).to.have.length(props.log.length);
+			expect(wrapper.find(DungeonLogMessage)).to.have.length(props.messageLog.length);
 		});
 
 		describe("<DungeonLogMessage />", () => {
 			it("should render a message", () => {
-				const messageObj = {message: props.log[0]};
+				const messageObj = {message: props.messageLog[0]};
 				const wrapper = shallow(<DungeonLogMessage { ...messageObj } />),
-					message = props.log[0].text;
+					message = props.messageLog[0].text;
 				expect(wrapper.html()).to.equal(`<li>${message}</li>`);
 			});
 		});

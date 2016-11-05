@@ -1,15 +1,15 @@
 import {expect} from "chai";
 
-import * as actions from "../src/redux/actions/playerStats";
+import * as actions from "../src/redux/actions/messageLog";
 import * as types from "../src/redux/actions/actionTypes";
 import reducer from "../src/redux/reducers/messageLog";
-import { initialState } from "../src/redux/reducers/messageLog";
 
 describe("Redux - messageLog", () => {
 	const message = {
 		type: "diceRoll",
 		text: "strength: 4"
-	};
+	},
+		initialState = [];
 	describe("Action Creators", () => {
 		describe("sendMessage", () => {
 			it("should create an action to send a message to the log", () => {
@@ -36,7 +36,7 @@ describe("Redux - messageLog", () => {
 					type: types.SEND_MESSAGE,
 					message
 				})
-			).to.eql( { ...initialState, message });
+			).to.eql( [...initialState, message ]);
 		});
 	});
 });
