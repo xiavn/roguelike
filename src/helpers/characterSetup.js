@@ -12,7 +12,7 @@ class Character {
 		let attributes = {};
 		//Generate a set or random attributes: 1d4+1 + class bonus
 		options.attributes.forEach((att) => {
-			let value = diceRoller("1d4 + 1", att);
+			let value = diceRoller("1d4 + 1", `${att}: `);
 			if (classStats.hasOwnProperty(att)) {
 				value += classStats[att];
 			}
