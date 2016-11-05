@@ -32,15 +32,15 @@ describe("<Display />", () => {
 			log: [
 				{
 					type: "diceRoll",
-					message: "strength: 4"
+					text: "strength: 4"
 				},
 				{
 					type: "diceRoll",
-					message: "accuracy: 2"
+					text: "accuracy: 2"
 				},
 				{
 					type: "damage",
-					message: "You took 5 slashing damage"
+					text: "You took 5 slashing damage"
 				}
 			]
 		};
@@ -51,8 +51,9 @@ describe("<Display />", () => {
 
 		describe("<DungeonLogMessage />", () => {
 			it("should render a message", () => {
-				const wrapper = shallow(<DungeonLogMessage { ...props.log[0]} />),
-					message = props.log[0].message;
+				const messageObj = {message: props.log[0]};
+				const wrapper = shallow(<DungeonLogMessage { ...messageObj } />),
+					message = props.log[0].text;
 				expect(wrapper.html()).to.equal(`<li>${message}</li>`);
 			});
 		});

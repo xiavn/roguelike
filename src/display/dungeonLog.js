@@ -13,12 +13,12 @@ DungeonLog.propTypes = {
 };
 
 export const DungeonLogMessage = ({ message }) => 
-	<li>{ message }</li>;
+	<li>{ message.text }</li>;
 
 DungeonLogMessage.propTypes = {
 	message: PropTypes.shape({
 		type: PropTypes.string.isRequired,
-		message: PropTypes.string.isRequired
+		text: PropTypes.string.isRequired
 	}).isRequired
 };
 
