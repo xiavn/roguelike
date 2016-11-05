@@ -6,7 +6,7 @@ import roguelike from "./redux/reducers/reducers";
 import Roguelike from "./roguelike";
 require("../main.scss");
 
-export let store = createStore(roguelike, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+let store = createStore(roguelike, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 render(
 	<Provider store={store}>
