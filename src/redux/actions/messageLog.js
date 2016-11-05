@@ -4,5 +4,5 @@ export const sendMessage = (message) => {
 	return {
 		type: types.SEND_MESSAGE,
 		message
-	}
-}
+	};
+};
