@@ -1,7 +1,7 @@
 import React, { PropTypes } from "react";
 import { connect } from "react-redux";
 
-import {saveClass} from "../redux/actions/playerStats";
+import {saveClass, increaseLevel} from "../redux/actions/playerStats";
 import {sendMessage} from "../redux/actions/messageLog";
 import {classOptions} from "../options";
 import character from "../helpers/characterSetup";
@@ -9,6 +9,7 @@ import character from "../helpers/characterSetup";
 class PlayerStatsList extends React.Component {
 	componentDidMount() {
 		this.props.saveClass(character.class);
+		this.props.increaseLevel(1, 0);
 	}
 
 	render() {
@@ -87,6 +88,9 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		sendMessage: (message) => {
 			dispatch(sendMessage(message));
+		},
+		increaseLevel: (by) => {
+			dispatch(increaseLevel(by));
 		},
 		saveClass: (pClass) => {
 			dispatch(saveClass(pClass));
