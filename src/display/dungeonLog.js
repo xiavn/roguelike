@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 export const DungeonLog = ({ messageLog }) => {
 	const messages = messageLog.map((message, i) => {
-		return <DungeonLogMessage message={message} />;
+		return <DungeonLogMessage message={message} key={i} />;
 	});
 	return <div className="dungeonLog"><h3>Message Log</h3><ul>{messages}</ul></div>;
 };
