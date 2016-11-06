@@ -39,7 +39,7 @@ class PlayerStatsList extends React.Component {
 PlayerStatsList.propTypes = {
 	playerStats: PropTypes.shape({
 		name: PropTypes.string.isRequired,
-		class: PropTypes.oneOf(classOptions.classes).isRequired,
+		class: PropTypes.oneOf([...classOptions.classes,"peasant"]).isRequired,
 		level: PropTypes.number.isRequired,
 		health: PropTypes.shape({
 			current: PropTypes.number.isRequired,

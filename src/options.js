@@ -1,8 +1,17 @@
 export const classOptions = {
-	classes: ["fighter","mage"],
-	resources: ["mana", "rage"],
+	classes: ["fighter", "mage"],
+	resources: ["luck", "mana", "rage"],
 	attributes: ["strength", "speed", "accuracy", "intelligence", "spirit", "constitution"],
 	classStats: {
+		peasant: {
+			resource: "luck",
+			health: "d6",
+			attributes: {
+				spirit: 1,
+				constitution: 1,
+				strength: 1
+			}
+		},
 		fighter: {
 			resource: "rage",
 			health: "d10",

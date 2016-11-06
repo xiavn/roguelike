@@ -4,8 +4,8 @@ import character from "../../helpers/characterSetup";
 const attributes = character.combinedAttributes;
 export const initialState = {
 	name: "Wheezer the Crazy",
-	class: "fighter",
-	level: 1,
+	class: "peasant",
+	level: 0,
 	health: attributes.derived.health,
 	attributes: attributes.attributes,
 	resource: attributes.derived.resource,
