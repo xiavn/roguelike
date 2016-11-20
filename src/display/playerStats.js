@@ -8,8 +8,8 @@ import character from "../helpers/characterSetup";
 
 class PlayerStatsList extends React.Component {
 	componentDidMount() {
-		this.props.saveClass(character.class);
-		this.props.increaseLevel(1, 0);
+		// this.props.saveClass(character.class);
+		// this.props.increaseLevel(1, 0);
 	}
 
 	render() {
