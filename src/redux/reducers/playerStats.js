@@ -1,14 +1,16 @@
 import { SAVE_NAME, SAVE_CLASS, CHANGE_LEVEL } from "../actions/actionTypes";
-import character from "../../helpers/characterSetup";
+import Character from "../../helpers/characterSetup";
 
-const attributes = character.combinedAttributes;
+
+const character = new Character();
+
 export const initialState = {
 	name: "Wheezer the Crazy",
 	class: character.class,
-	level: 1,
-	health: attributes.derived.health,
-	attributes: attributes.attributes,
-	resource: attributes.derived.resource,
+	level: character.level,
+	health: character.health,
+	attributes: character.attributes,
+	resource: character.resource,
 	inventory: [
 		{
 			name: "Health Potion",

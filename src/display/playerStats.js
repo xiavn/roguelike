@@ -1,31 +1,46 @@
 import React, { PropTypes } from "react";
 import { connect } from "react-redux";
 
+import {saveClass, increaseLevel} from "../redux/actions/playerStats";
+import {sendMessage} from "../redux/actions/messageLog";
 import {classOptions} from "../options";
+import character from "../helpers/characterSetup";
 
-const PlayerStatsList = ( { playerStats } ) => 
-	<ul>
-		<li key="name" >Name: { playerStats.name }</li>
-		<li key="class" >Class: { playerStats.class }</li>
-		<li key="level" >Level: { playerStats.level }</li>
-		<li key="health" >Health: { playerStats.health.current }/{ playerStats.health.total }</li>
-		<li key="attributes" >Attributes:
-			<StatsSubList stat={ playerStats.attributes } />
-		</li>
-		<li key="resource" >{ playerStats.resource.type}: { playerStats.resource.current }/{ playerStats.resource.total }</li>
-		<li key="inventory" >Inventory:
-			<StatsSubList stat={playerStats.inventory} />
-		</li>
-		<li key="abilities" >Abilities:
-			<StatsSubList stat={playerStats.abilities} />
-		</li>
+class PlayerStatsList extends React.Component {
+	componentDidMount() {
+		// this.props.saveClass(character.class);
+		// this.props.increaseLevel(1, 0);
+	}
 
-	</ul>;
+	render() {
+		const playerStats = this.props.playerStats;
+		return (
+			<ul>
+				<li key="name" >Name: { playerStats.name }</li>
+				<li key="class" >Class: { playerStats.class }</li>
+				<li key="level" >Level: { playerStats.level }</li>
+				<li key="health" >Health: { playerStats.health.current }/{ playerStats.health.total }</li>
+				<li key="attributes" >Attributes:
+					<StatsSubList stat={ playerStats.attributes } />
+				</li>
+				<li key="resource" >{ playerStats.resource.type}: { playerStats.resource.current }/{ playerStats.resource.total }</li>
+				<li key="inventory" >Inventory:
+					<StatsSubList stat={playerStats.inventory} />
+				</li>
+				<li key="abilities" >Abilities:
+					<StatsSubList stat={playerStats.abilities} />
+				</li>
+
+			</ul>
+		);
+	}
+}
+	
 
 PlayerStatsList.propTypes = {
 	playerStats: PropTypes.shape({
 		name: PropTypes.string.isRequired,
-		class: PropTypes.oneOf(classOptions.classes).isRequired,
+		class: PropTypes.oneOf([...classOptions.classes,"peasant"]).isRequired,
 		level: PropTypes.number.isRequired,
 		health: PropTypes.shape({
 			current: PropTypes.number.isRequired,
@@ -69,7 +84,24 @@ const mapStateToProps = (state) => {
 	};
 };
 
-const PlayerStats = connect(mapStateToProps)(PlayerStatsList);
+const mapDispatchToProps = (dispatch) => {
+	return {
+		sendMessage: (message) => {
+			dispatch(sendMessage(message));
+		},
+		increaseLevel: (by) => {
+			dispatch(increaseLevel(by));
+		},
+		saveClass: (pClass) => {
+			dispatch(saveClass(pClass));
+		}
+	};
+};
+
+const PlayerStats = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(PlayerStatsList);
 
 export default PlayerStats;
 
