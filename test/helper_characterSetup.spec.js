@@ -26,6 +26,17 @@ describe("Helper - Character", () => {
 			expect(character.class).to.be.oneOf(options.classes);
 		});
 	});
+	describe(".level", () => {
+		it("should be 1", () => {
+			expect(character.level).to.equal(1);
+		});
+		it("unless specified otherwise", () => {
+			const highLevel = new Character({
+				level: 5
+			});
+			expect(highLevel.level).to.equal(5);
+		});
+	});
 	describe(".attributes", () => {
 		it("is an object with a key and value pair for each attribute", () => {
 			const attributes = options.attributes;
