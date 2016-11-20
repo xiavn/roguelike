@@ -15,7 +15,7 @@ export default class Character {
 		pClass = classOptions.classes[Math.floor(Math.random() * classOptions.classes.length)],
 		attributes = attributeRoller()} = {}) {
 		this.class = pClass;
-		this.attributes = attributes;
+		this._attributes = attributes;
 		this.level = level;
 	}
 
@@ -23,17 +23,17 @@ export default class Character {
 		return classOptions.classStats[this.class];
 	}
 
-	// set attributes(attributes) {
-	// 	let newAtt = attributes;
-	// 	classOptions.attributes.forEach((att) => {
-	// 		let value;
-	// 		if (this.stats.hasOwnProperty(att)) {
-	// 			value += this.stats[att];
-	// 		}
-	// 		newAtt[att] = value;
-	// 	});
-	// 	return newAtt;
-	// }
+	get attributes() {
+		let newAtt = {};
+		classOptions.attributes.forEach((att) => {
+			let value = this._attributes[att];
+			if (this.stats.attributes.hasOwnProperty(att)) {
+				value += this.stats.attributes[att];
+			}
+			newAtt[att] = value;
+		});
+		return newAtt;
+	}
 
 	get health() {
 		const healthDie = /\d+/g.exec(this.stats.health);
