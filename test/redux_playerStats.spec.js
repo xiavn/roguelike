@@ -3,7 +3,8 @@ import {expect} from "chai";
 import * as actions from "../src/redux/actions/playerStats";
 import * as types from "../src/redux/actions/actionTypes";
 import reducer from "../src/redux/reducers/playerStats";
-import { initialState } from "../src/redux/reducers/playerStats";
+import { initialState, character } from "../src/redux/reducers/playerStats";
+
 
 
 describe("Redux - playerStats", () => {
@@ -65,13 +66,14 @@ describe("Redux - playerStats", () => {
 					pClass: "mage"
 				})
 			).to.eql( { ...initialState, class: "mage" });
-			let initialLevel = initialState.level;
 			expect(
 				reducer(undefined, {
 					type: types.CHANGE_LEVEL,
 					by: 1
 				})
-			).to.eql( { ...initialState, level:  initialLevel+1});
+			).to.eql( { ...initialState, level: character.level,
+			health: character.health,
+			resource: character.resource});
 		});
 	});
 });

@@ -2,7 +2,7 @@ import { SAVE_NAME, SAVE_CLASS, CHANGE_LEVEL } from "../actions/actionTypes";
 import Character from "../../helpers/characterSetup";
 
 
-const character = new Character();
+export const character = new Character();
 
 export const initialState = {
 	name: "Wheezer the Crazy",
@@ -30,10 +30,13 @@ export default function playerStats(state = initialState , action) {
 		case SAVE_NAME:
 			return  { ...state, name: action.name };
 		case SAVE_CLASS:
+			character.class = action.pClass;
 			return { ...state, class: action.pClass };
 		case CHANGE_LEVEL:
-			return {...state, level: state.level+action.by };
-
+			character.level = state.level+action.by;
+			return {...state, level: character.level,
+				health: character.health,
+				resource: character.resource };
 		default:
 			return state;
 	}
