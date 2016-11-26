@@ -36,6 +36,11 @@ describe("Helper - Character", () => {
 			});
 			expect(highLevel.level).to.equal(5);
 		});
+		it("should be able to be set", () => {
+			expect(mage.level).to.equal(1);
+			mage.level = 2;
+			expect(mage.level).to.equal(2);
+		});
 	});
 	describe(".attributes", () => {
 		it("is an object with a key and value pair for each attribute", () => {
@@ -60,20 +65,25 @@ describe("Helper - Character", () => {
 		});
 	});
 	describe(".health", () => {
+		const con = mage.attributes.constitution;
+		const healthDie = parseInt(/\d+/g.exec(classOptions.classStats.mage.health)[0]);
 		it("is an object with a total and current", () => {
 			expect(character.health).to.have.property("total")
 					.to.be.a("number");
 			expect(character.health).to.have.property("current")
 					.that.is.a("number");	
 		});
-		it("should be calculated based off the characters class and constitution attribute", () => {
-			const con = mage.attributes.constitution;
-			const healthDie = parseInt(/\d+/g.exec(classOptions.classStats.mage.health)[0]);
+		it("should be calculated based off the characters class and constitution attribute at first level", () => {
+			mage.level = 1;
 			expect(mage.health.total).to.equal(healthDie + con);
 		});
 		it("should start full", () => {
 			expect(mage.health.current).to.equal(mage.health.total);
-		})
+		});
+		it("should increase with level based on class and constitution", () => {
+			mage.level = 2;
+			expect(mage.health.total).to.be.within((healthDie + con) + ((1 + con) * (mage.level-1)),(healthDie + con) + ((healthDie + con) * (mage.level-1)));
+		});
 	});
 	describe(".resource", () => {
 		it("is an object with a type, total and current", () => {

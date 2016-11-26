@@ -36,8 +36,9 @@ export default class Character {
 	}
 
 	get health() {
-		const healthDie = /\d+/g.exec(this.stats.health);
-		const health = parseInt(healthDie[0]) + this.attributes.constitution;
+		let healthDie = /\d+/g.exec(this.stats.health);
+		healthDie = parseInt(healthDie[0]);
+		const health = (healthDie + this.attributes.constitution) + ((diceRoller(this.stats.health) + this.attributes.constitution) * (this.level - 1));
 		return {
 			total: health,
 			current: health
