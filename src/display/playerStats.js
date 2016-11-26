@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import {saveClass, increaseLevel} from "../redux/actions/playerStats";
 import {sendMessage} from "../redux/actions/messageLog";
 import {classOptions} from "../options";
-import character from "../helpers/characterSetup";
 
 class PlayerStatsList extends React.Component {
 	componentDidMount() {
