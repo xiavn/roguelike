@@ -98,9 +98,12 @@ describe("Helper - Character", () => {
 			it("should be calculated based off the characters class of mage", () => {
 				expect(mage.resource.type).to.equal("mana");
 			});
-			it("should be calculated based off the characters intelligence + 5", () => {
+			it("should be calculated based off the characters intelligence * level + 5", () => {
 				const intelligence = mage.attributes.intelligence;
-				expect(mage.resource.total).to.equal(5 + intelligence);
+				for (let i = 1; i<10; i++) {
+					mage.level = i;
+					expect(mage.resource.total).to.equal(5 + (intelligence * mage.level));
+				}
 			});
 			it("should start at full value", () => {
 				expect(mage.resource.current).to.equal(mage.resource.total);
@@ -113,9 +116,12 @@ describe("Helper - Character", () => {
 			it("should be calculated based off the characters class of fighter", () => {
 				expect(fighter.resource.type).to.equal("rage");
 			});
-			it("should be calculated based off the characters constitution + 5", () => {
+			it("should be calculated based off the characters constitution * level + 5", () => {
 				const con = fighter.attributes.constitution;
-				expect(fighter.resource.total).to.equal(5 + con);
+				for (let i = 1; i<10; i++) {
+					fighter.level = i;
+					expect(fighter.resource.total).to.equal(5 + (con * fighter.level));
+				}
 			});
 			it("should start at empty", () => {
 				expect(fighter.resource.current).to.equal(0);

@@ -52,10 +52,10 @@ export default class Character {
 		switch(resource) {
 			case "rage":
 				rsCurrent =  0;
-				rsTotal = 5 + this.attributes.constitution;
+				rsTotal = 5 + (this.attributes.constitution * this.level);
 				break;
 			case "mana":
-				rsTotal = 5 + this.attributes.intelligence;
+				rsTotal = 5 + (this.attributes.intelligence * this.level);
 				rsCurrent = rsTotal;
 				break;
 			default:
