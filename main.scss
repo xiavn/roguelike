@@ -10,3 +10,18 @@ body {
 .hidden {
 	display: none;
 }
+
+.column {
+	display: flex;
+}
+
+.cell {
+	width: 20px;
+	height: 20px;
+	background-color: white;
+	border: 1px solid black;
+}
+
+.cell.wall {
+	background-color: grey;
+}

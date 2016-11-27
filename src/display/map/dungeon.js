@@ -6,7 +6,7 @@ export const Dungeon = ( {dungeon} ) => {
 		return <Column column={column} key={i} />;
 	});
 
-	return <div>{columns}</div>;
+	return <div className="dungeon-map">{columns}</div>;
 }
 
 Dungeon.propTypes = {
@@ -18,11 +18,12 @@ export const Column = ( {column} ) => {
 		return <Cell type={cell.type} key={i} />;
 	});
 	return <div className="column">{cells}</div>;
-}
+};
 
 export const Cell = ( {type} ) => {
-	return <span className="cell">X</span>;
-}
+	let tile = `cell ${type}`;
+	return <div className={tile}></div>;
+};
 
 const mapStateToProps = (state) => {
 	return {
