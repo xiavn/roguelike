@@ -5,8 +5,6 @@ import * as types from "../src/redux/actions/actionTypes";
 import reducer from "../src/redux/reducers/playerStats";
 import { initialState, character } from "../src/redux/reducers/playerStats";
 
-
-
 describe("Redux - playerStats", () => {
 	describe("Action Creators", () => {
 		describe("saveName", () => {
@@ -53,28 +51,29 @@ describe("Redux - playerStats", () => {
 			).to.eql(initialState);
 		});
 
-		it("should handle SAVE_NAME, SAVE_CLASS, INCREASE_LEVEL", () => {
+		it("should handle SAVE_NAME", () => {
 			expect(
-				reducer(undefined, {
+				reducer(initialState, {
 					type: types.SAVE_NAME,
 					name: "Rager the Bold"
 				})
 			).to.eql( { ...initialState, name: "Rager the Bold" });
+		});
+		it("should handle SAVE_CLASS", () => {
 			expect(
-				reducer(undefined, {
+				reducer(initialState, {
 					type: types.SAVE_CLASS,
 					pClass: "mage"
 				})
 			).to.eql( { ...initialState, class: "mage" });
+		});
+		it("should handle INCREASE_LEVEL", () => {
 			expect(
-				reducer(undefined, {
+				reducer(initialState, {
 					type: types.CHANGE_LEVEL,
 					by: 1
 				})
-			).to.eql( { ...initialState, level: character.level,
-			health: character.health,
-			resource: character.resource});
+			).to.include.keys({"level" : character.level});
 		});
 	});
 });
-
