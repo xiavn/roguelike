@@ -2,22 +2,30 @@
 export const dHeight = 40;
 export const dWidth = 40;
 
-const createDungeon = (width = dWidth, height = dHeight) => {
-	let dungeon = [];
+export default class Dungeon {
 
-	for (let i = 0; i < width; i++) {
-		dungeon.push([]);
+}
+
+export class DungeonMap {
+	constructor(width = dWidth, height = dHeight) {
+		this.width = width;
+		this.height = height;
 	}
+	get map() {
+		let map = [];
 
-	dungeon.forEach((column) => {
-		for (let i = 0; i < height; i++) {
-			column.push({
-				type: "wall"
-			});
+		for (let i = 0; i < this.width; i++) {
+			map.push([]);
 		}
-	});
 
-	return dungeon;
-};
+		map.forEach((column) => {
+			for (let i = 0; i < this.height; i++) {
+				column.push({
+					type: "wall"
+				});
+			}
+		});
 
-export default createDungeon;
+		return map;
+	}
+}

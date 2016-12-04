@@ -7,7 +7,7 @@ export const Dungeon = ( {dungeon} ) => {
 	});
 
 	return <div className="dungeon-map">{columns}</div>;
-}
+};
 
 Dungeon.propTypes = {
 	dungeon: PropTypes.array.isRequired
