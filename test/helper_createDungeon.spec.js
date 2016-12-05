@@ -12,8 +12,11 @@ describe("Dungeon", () => {
 	});
 });
 
+const x = 75,
+	y = 20;
+
 const dungeonMap = new DungeonMap(),
-	dungeonMapCustom = new DungeonMap(75, 30);
+	dungeonMapCustom = new DungeonMap(x, y);
 
 describe("DungeonMap", () => {
 	describe(".map", () => {
@@ -23,7 +26,7 @@ describe("DungeonMap", () => {
 			expect(map).to.be.an("array")
 				.to.have.lengthOf(dWidth);
 			expect(customMap).to.be.an("array")
-				.to.have.lengthOf(75);
+				.to.have.lengthOf(x);
 
 			describe("each column", () => {
 				it("should be an array of cells", () => {
@@ -33,7 +36,7 @@ describe("DungeonMap", () => {
 					});
 					customMap.forEach((column) => {
 						expect(column).to.be.an("array")
-							.to.have.lengthOf(30);
+							.to.have.lengthOf(y);
 					});
 
 					describe("each cell", () => {
@@ -50,7 +53,7 @@ describe("DungeonMap", () => {
 							expect(cell).to.have.property("location")
 								.that.is.an("array");
 							expect(map[0][0].location).to.eql([0,0]);
-							expect(map[10][20].location).to.eql([10,20]);
+							expect(map[10][10].location).to.eql([10,10]);
 						});
 					});
 				});
@@ -62,9 +65,18 @@ describe("DungeonMap", () => {
 			expect(dungeonMap.chooseCell()).to.be.an.instanceOf(Cell);
 		});
 	});
-	describe(".visit()", () => {
-		it("should visit a randomly selected starting cell", () => {
+});
 
+describe("Cell", () => {
+	describe(".visit()", () => {
+		it("marks a cell as visited", () => {
+			const smallMap = new DungeonMap(2,2);
+			const cell = smallMap.chooseCell();
+			expect(cell.visited).to.equal(false);
+			cell.visit();
+			expect(cell.visited).to.equal(true);
 		});
 	});
+		
 });
+	

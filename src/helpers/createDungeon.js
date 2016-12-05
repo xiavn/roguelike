@@ -16,25 +16,21 @@ export class DungeonMap {
 	constructor(width = dWidth, height = dHeight) {
 		this.width = width;
 		this.height = height;
-	}
-	get map() {
 		let map = [];
-
-		for (let i = 0; i < this.width; i++) {
+		for (let i = 0; i < width; i++) {
 			map.push([]);
 		}
 
 		map.forEach((column, i) => {
-			for (let p = 0; p < this.height; p++) {
+			for (let p = 0; p < height; p++) {
 				column.push(new Cell(i,p));
 			}
 		});
-
-		return map;
+		this.map = map;
 	}
 
 	chooseCell() {
-		const x = Math.floor(Math.random() * this.width) + 1,
+		let x = Math.floor(Math.random() * this.width) + 1,
 			y = Math.floor(Math.random() * this.height) + 1;
 		return this.map[x][y];
 	}
@@ -45,5 +41,9 @@ export class Cell {
 		this.location = [x, y];
 		this.type = "wall";
 		this.visited = false;
+	}
+
+	visit() {
+		this.visited = true;
 	}
 }
