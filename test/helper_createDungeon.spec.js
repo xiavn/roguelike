@@ -59,6 +59,53 @@ describe("DungeonMap", () => {
 				});
 			});
 		});
+		describe(".tunnel(dir)", () => {
+			it("creates a tunnel to the north, south, east and west", () => {
+				const tunnelDungeon = new DungeonMap(4,4);
+				let start = tunnelDungeon.map[2][2];
+				tunnelDungeon.currentCell = start;
+				tunnelDungeon.tunnel("north");
+				expect(tunnelDungeon.currentCell).to.equal(tunnelDungeon.map[2][1]);
+				expect(start.exits).to.have.property("north", true);
+
+				tunnelDungeon.currentCell = start;
+				tunnelDungeon.tunnel("east");
+				expect(tunnelDungeon.currentCell).to.equal(tunnelDungeon.map[3][2]);
+				expect(start.exits).to.have.property("east", true);
+
+				tunnelDungeon.currentCell = start;
+				tunnelDungeon.tunnel("south");
+				expect(tunnelDungeon.currentCell).to.equal(tunnelDungeon.map[2][3]);
+				expect(start.exits).to.have.property("south", true);
+
+				tunnelDungeon.currentCell = start;
+				tunnelDungeon.tunnel("west");
+				expect(tunnelDungeon.currentCell).to.equal(tunnelDungeon.map[1][2]);
+				expect(start.exits).to.have.property("west", true);
+
+				expect(start.exits).to.have.property("north", true);
+				expect(start.exits).to.have.property("east", true);
+				expect(start.exits).to.have.property("south", true);
+				expect(start.exits).to.have.property("west", true);
+
+			});
+			it("won't tunnel past the edge of the map", () => {
+				const tunnelDungeon = new DungeonMap(4,4);
+				let start = tunnelDungeon.map[0][0];
+				tunnelDungeon.currentCell = start;
+				tunnelDungeon.tunnel("north");
+				expect(tunnelDungeon.currentCell).to.equal(start);
+				tunnelDungeon.tunnel("west");
+				expect(tunnelDungeon.currentCell).to.equal(start);
+				start = tunnelDungeon.map[3][3];
+				tunnelDungeon.currentCell = start;
+				tunnelDungeon.tunnel("south");
+				expect(tunnelDungeon.currentCell).to.equal(start);
+				tunnelDungeon.tunnel("east");
+				expect(tunnelDungeon.currentCell).to.equal(start);
+			});	
+		});
+			
 	});
 	describe(".chooseCell()", () => {
 		it("should select a random cell", () => {
