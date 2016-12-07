@@ -43,20 +43,16 @@ export class DungeonMap {
 		return this.map[x][y];
 	}
 
-	chooseDirection() {
-		const direction = diceRoller("1d4");
-		switch (direction) {
-			case 1:
-				return "north";
-			case 2:
-				return "east";
-			case 3:
-				return "south";
-			case 4:
-				return "west";
-			default:
-				return "north";
+	chooseDirection(exclude = []) {
+		const directions = ["north", "south", "east", "west"];
+		let available = [];
+		for (let i = 0; i<directions.length; i++) {
+			if (exclude.indexOf(directions[i] != -1)) {
+				available.push(directions[i]);
+			}
 		}
+		const direction = Math.floor(Math.random() * (available.length -1) + 1);
+		return available[direction];
 	}
 
 	checkDirection(dir,visited = true) {
@@ -80,6 +76,10 @@ export class DungeonMap {
 				if (visited && this.map[x-1][y].visited) { return false; }
 				return true;
 		}
+	}
+
+	get available() {
+		//return an array of objects with the visited  = false property.
 	}
 
 	tunnel(dir) {
@@ -113,9 +113,26 @@ export class DungeonMap {
 	}
 
 	createMaze() {
+		const findUnvisited = () => {
+			if (blocked.indexOf(currentDir) != -1) {
+				if (this.checkDirection(currentDir)) {
+					this.tunnel(currentDir);
+				} else {
+					blocked.push(currentDir);
+					currentDir = this.chooseDirection;
+					findUnvisited();
+				}
+			} else if (blocked.length === 4) {
+
+			} else {
+				currentDir = this.chooseDirection;
+				findUnvisited();
+			}
+		};
 		this.currentCell.visit();
 		let currentDir = this.chooseDirection;
-
+		let blocked = [];
+		findUnvisited();
 	}
 }
 
