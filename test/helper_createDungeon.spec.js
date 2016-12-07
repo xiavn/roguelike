@@ -112,6 +112,31 @@ describe("DungeonMap", () => {
 			expect(dungeonMap.chooseCell()).to.be.an.instanceOf(Cell);
 		});
 	});
+	describe(".chooseDirection()", () => {
+		it("should select a random direction - north, south, east, west.", () => {
+			expect(dungeonMap.chooseDirection()).to.be.oneOf(["north", "east", "south", "west"]);
+		});
+	});
+	describe(".checkDirection(dir,visited)", () => {
+		it("should check that tunneling in the current direction is valid - not out of bounds or already visited", () => {
+			const smallMap = new DungeonMap(2,2);
+			smallMap.currentCell = smallMap.map[0][0];
+			expect(smallMap.checkDirection("north")).to.equal(false);
+		});
+	});
+	describe(".createMaze", () => {
+		it("should have visited every tile", () => {
+			let map = dungeonMap.map;
+			dungeonMap.createMaze();
+			map.forEach((column) => {
+				column.forEach((cell) => {
+					expect(cell.visited).to.equal(true);
+				});
+			});
+		});
+			
+	});
+		
 });
 
 describe("Cell", () => {

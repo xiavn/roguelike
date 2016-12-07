@@ -1,3 +1,5 @@
+import diceRoller from "./dice";
+
 //Defaults
 export const dHeight = 40;
 export const dWidth = 40;
@@ -41,6 +43,45 @@ export class DungeonMap {
 		return this.map[x][y];
 	}
 
+	chooseDirection() {
+		const direction = diceRoller("1d4");
+		switch (direction) {
+			case 1:
+				return "north";
+			case 2:
+				return "east";
+			case 3:
+				return "south";
+			case 4:
+				return "west";
+			default:
+				return "north";
+		}
+	}
+
+	checkDirection(dir,visited = true) {
+		let x = this.currentCell.location[0],
+			y = this.currentCell.location[1];
+		switch(dir) {
+			case "north":
+				if (y <= 0) { return false; }
+				if (visited && this.map[x][y-1].visited) { return false; }
+				return true;
+			case "east":
+				if (x >= this.width - 1) { return false; }
+				if (visited && this.map[x+1][y].visited) { return false; }
+				return true;
+			case "south":
+				if (y >= this.height - 1) { return false; }
+				if (visited && this.map[x][y+1].visited) { return false; }
+				return true;
+			case "west":
+				if (x <= 0) { return false; }
+				if (visited && this.map[x-1][y].visited) { return false; }
+				return true;
+		}
+	}
+
 	tunnel(dir) {
 		let x = this.currentCell.location[0],
 			y = this.currentCell.location[1];
@@ -69,6 +110,12 @@ export class DungeonMap {
 				break;
 		}
 		this.currentCell = this.map[x][y];
+	}
+
+	createMaze() {
+		this.currentCell.visit();
+		let currentDir = this.chooseDirection;
+
 	}
 }
 
