@@ -11,8 +11,13 @@ body {
 	display: none;
 }
 
+.dungeon-map {
+	display: flex;
+}
+
 .column {
 	display: flex;
+	flex-flow: column;
 }
 
 .cell {
