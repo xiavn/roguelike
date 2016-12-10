@@ -7,6 +7,7 @@ export const dWidth = 40;
 export default class Dungeon {
 	constructor(width = dWidth, height = dHeight) {
 		this._map = new DungeonMap(width, height);
+		this._map.createMaze();
 	}
 
 	get map() {
@@ -70,11 +71,11 @@ export class DungeonMap {
 		const directions = ["north", "south", "east", "west"];
 		let available = [];
 		for (let i = 0; i<directions.length; i++) {
-			if (exclude.indexOf(directions[i] != -1)) {
+			if (exclude.indexOf(directions[i]) === -1) {
 				available.push(directions[i]);
 			}
 		}
-		const direction = Math.floor(Math.random() * (available.length -1) + 1);
+		const direction = Math.floor(Math.random() * available.length);
 		return available[direction];
 	}
 
@@ -133,23 +134,37 @@ export class DungeonMap {
 
 	createMaze() {
 		const findUnvisited = () => {
-			if (blocked.indexOf(currentDir) != -1) {
-				if (this.checkDirection(currentDir)) {
-					this.tunnel(currentDir);
-				} else {
-					blocked.push(currentDir);
-					currentDir = this.chooseDirection;
+			if (blocked.length === 4) {
+				console.log(1);
+				if (this.notVisited.length > 0) {
+					this.currentCell = this.chooseCell(this.notVisited);
+					this.currentCell.visit();
+					blocked = [];
 					findUnvisited();
 				}
-			} else if (blocked.length === 4) {
-
+			} else if (blocked.indexOf(currentDir) === -1) {
+				if (this.checkDirection(currentDir)) {
+					this.tunnel(currentDir);
+					this.currentCell.visit();
+					blocked = [];
+					console.log(this.currentCell);
+					findUnvisited();
+				} else {
+					console.log("b");
+					// blocked.push(currentDir);
+					// currentDir = this.chooseDirection(blocked);
+					// findUnvisited();
+				}
 			} else {
-				currentDir = this.chooseDirection;
+				console.log(3);
+				currentDir = this.chooseDirection(blocked);
 				findUnvisited();
 			}
 		};
 		this.currentCell.visit();
-		let currentDir = this.chooseDirection;
+		console.log(this.currentCell);
+		let currentDir = this.chooseDirection();
+		console.log(currentDir);
 		let blocked = [];
 		findUnvisited();
 	}

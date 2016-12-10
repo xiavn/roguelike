@@ -131,6 +131,10 @@ describe("DungeonMap", () => {
 		it("should select a random direction - north, south, east, west.", () => {
 			expect(dungeonMap.chooseDirection()).to.be.oneOf(["north", "east", "south", "west"]);
 		});
+		it("should not select an excluded location", () => {
+			expect(dungeonMap.chooseDirection(["north","south","east"])).to.equal("west");
+		});
+			
 	});
 	describe(".checkDirection(dir,visited)", () => {
 		it("should check that tunneling in the current direction is valid - not out of bounds or already visited", () => {
@@ -141,15 +145,14 @@ describe("DungeonMap", () => {
 	});
 	describe(".createMaze", () => {
 		it("should have visited every tile", () => {
-			// let map = dungeonMap.map;
-			// dungeonMap.createMaze();
-			// map.forEach((column) => {
-			// 	column.forEach((cell) => {
-			// 		expect(cell.visited).to.equal(true);
-			// 	});
-			// });
-		});
-			
+			let map = dungeonMap.map;
+			dungeonMap.createMaze();
+			map.forEach((column) => {
+				column.forEach((cell) => {
+					expect(cell.visited).to.equal(true);
+				});
+			});
+		});	
 	});
 		
 });
