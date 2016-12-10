@@ -23,6 +23,18 @@ export class DungeonMap {
 		this.currentCell = this.chooseCell();
 	}
 
+	get notVisited() {
+		let available = [];
+		for(let i = 0; i < this.width; i++) {
+			for(let p = 0; p < this.height; p++) {
+				if (this.map[i][p].visited === false) {
+					available.push([i,p]);
+				}
+			}
+		}
+		return available;
+	}
+
 	createStartMap() {
 		let map = [];
 		for (let i = 0; i < this.width; i++) {
@@ -37,10 +49,21 @@ export class DungeonMap {
 		return map;
 	}
 
-	chooseCell() {
-		let x = Math.floor(Math.random() * this.width - 1) + 1,
-			y = Math.floor(Math.random() * this.height - 1) + 1;
-		return this.map[x][y];
+	chooseCell(list = []) {
+		if (list.length > 0) {
+			const n = Math.floor(Math.random() * list.length),
+				cell = list[n],
+				x = cell[0],
+				y = cell[1];
+
+			return this.map[x][y];
+
+		} else {
+			let x = Math.floor(Math.random() * this.width),
+			y = Math.floor(Math.random() * this.height);
+			
+			return this.map[x][y];
+		} 
 	}
 
 	chooseDirection(exclude = []) {
@@ -76,10 +99,6 @@ export class DungeonMap {
 				if (visited && this.map[x-1][y].visited) { return false; }
 				return true;
 		}
-	}
-
-	get available() {
-		//return an array of objects with the visited  = false property.
 	}
 
 	tunnel(dir) {

@@ -107,10 +107,25 @@ describe("DungeonMap", () => {
 		});
 			
 	});
-	describe(".chooseCell()", () => {
+	describe(".notVisited", () => {
+		it("should return an array of non visited tiles", () => {
+			const smallMap = new DungeonMap(2,2);
+			expect(smallMap.notVisited).to.have.length(4);
+			expect(smallMap.notVisited).to.deep.include.members([[0,0],[0,1],[1,1],[1,0]]);
+			smallMap.map[0][0].visited = true;
+			expect(smallMap.notVisited).to.have.length(3);
+			expect(smallMap.notVisited).to.deep.include.members([[0,1],[1,1],[1,0]]);
+		});
+	});
+		
+	describe(".chooseCell(list)", () => {
 		it("should select a random cell", () => {
 			expect(dungeonMap.chooseCell()).to.be.an.instanceOf(Cell);
 		});
+		it("should select a random cell from a list", () => {
+			expect(dungeonMap.chooseCell([[0,0],[0,3],[4,5]])).to.be.oneOf([dungeonMap.map[0][0],dungeonMap.map[0][3],dungeonMap.map[4][5]]);
+		});
+			
 	});
 	describe(".chooseDirection()", () => {
 		it("should select a random direction - north, south, east, west.", () => {
