@@ -15,13 +15,19 @@ Dungeon.propTypes = {
 
 export const Column = ( {column} ) => {
 	const cells = column.map((cell, i) => {
-		return <Cell type={cell.type} visited={cell.visited} key={i} />;
+		return <Cell type={cell.type} exits={cell.exits} key={i} />;
 	});
 	return <div className="column">{cells}</div>;
 };
 
-export const Cell = ( {type, visited} ) => {
-	let tile = `cell ${type} ${visited}`;
+export const Cell = ( {type, exits} ) => {
+	let walls = '';
+	for (let exit in exits) {
+		if (!exits[exit]) {
+			walls += ` ${exit}`;
+		}
+	}
+	let tile = `cell ${type}${walls}`;
 	return <div className={tile}></div>;
 };
 

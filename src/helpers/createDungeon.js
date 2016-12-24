@@ -36,6 +36,18 @@ export class DungeonMap {
 		return available;
 	}
 
+	get visited() {
+		let available = [];
+		for(let i = 0; i < this.width; i++) {
+			for(let p = 0; p < this.height; p++) {
+				if (this.map[i][p].visited) {
+					available.push([i,p]);
+				}
+			}
+		}
+		return available;
+	}
+
 	createStartMap() {
 		let map = [];
 		for (let i = 0; i < this.width; i++) {
@@ -135,9 +147,9 @@ export class DungeonMap {
 	createMaze() {
 		const findUnvisited = () => {
 			if (blocked.length === 4) {
-				console.log(1);
+				console.log(`all directions blocked`);
 				if (this.notVisited.length > 0) {
-					this.currentCell = this.chooseCell(this.notVisited);
+					this.currentCell = this.chooseCell(this.visited);
 					this.currentCell.visit();
 					blocked = [];
 					findUnvisited();
@@ -145,15 +157,15 @@ export class DungeonMap {
 			} else if (blocked.indexOf(currentDir) === -1) {
 				if (this.checkDirection(currentDir)) {
 					this.tunnel(currentDir);
-					this.currentCell.visit();
+					this.currentCell.visit(currentDir);
 					blocked = [];
-					console.log(this.currentCell);
+					console.log(`moving ${currentDir}`);
 					findUnvisited();
 				} else {
-					console.log("b");
-					// blocked.push(currentDir);
-					// currentDir = this.chooseDirection(blocked);
-					// findUnvisited();
+					console.log(`can't go ${currentDir}`);
+					blocked.push(currentDir);
+					currentDir = this.chooseDirection(blocked);
+					findUnvisited();
 				}
 			} else {
 				console.log(3);
@@ -162,9 +174,8 @@ export class DungeonMap {
 			}
 		};
 		this.currentCell.visit();
-		console.log(this.currentCell);
+		console.log(`current cell: ${this.currentCell.location[0]},${this.currentCell.location[1]}`);
 		let currentDir = this.chooseDirection();
-		console.log(currentDir);
 		let blocked = [];
 		findUnvisited();
 	}
@@ -183,7 +194,25 @@ export class Cell {
 		};
 	}
 
-	visit() {
+	visit(from = 'start') {
 		this.visited = true;
+		this.type = 'floor';
+		if (from !== 'start') {
+			switch(from) {
+				case 'north':
+					this.exits.south = true;
+					break;
+				case 'south':
+					this.exits.north = true;
+					break;
+				case 'east':
+					this.exits.west = true;
+					break;
+				case 'west':
+					this.exits.east = true;
+					break;
+			}
+			
+		}
 	}
 }
