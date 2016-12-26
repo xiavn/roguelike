@@ -10,6 +10,18 @@ describe("Dungeon", () => {
 			expect(dungeon._map).to.be.an.instanceOf(DungeonMap);
 		});
 	});
+	describe(".map", () => {
+		it("should allow the player to access any floor tile from any other floor tile", () => {
+			//Create player on a random floor tile
+
+
+			//Choose destination tile
+
+
+			//Move player to destination
+		});
+			
+	});
 });
 
 const x = 75,
@@ -152,7 +164,7 @@ describe("DungeonMap", () => {
 					expect(cell.visited).to.equal(true);
 				});
 			});
-		});	
+		});
 	});
 		
 });
