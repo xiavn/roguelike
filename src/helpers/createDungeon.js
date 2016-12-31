@@ -147,36 +147,41 @@ export class DungeonMap {
 	createMaze() {
 		const findUnvisited = () => {
 			if (blocked.length === 4) {
-				console.log(`all directions blocked`);
+				//console.log(`all directions blocked`);
 				if (this.notVisited.length > 0) {
 					this.currentCell = this.chooseCell(this.visited);
 					this.currentCell.visit();
 					blocked = [];
+					currentDir = this.chooseDirection();
 					findUnvisited();
+				} else {
+					//console.log("all cells visited!");
 				}
 			} else if (blocked.indexOf(currentDir) === -1) {
 				if (this.checkDirection(currentDir)) {
 					this.tunnel(currentDir);
 					this.currentCell.visit(currentDir);
 					blocked = [];
-					console.log(`moving ${currentDir}`);
+					if (diceRoller("d100") < randomness) {
+						//change direction
+						//console.log("change!");
+						currentDir = this.chooseDirection([currentDir]);
+					}
+					//console.log(`moving ${currentDir}`);
 					findUnvisited();
 				} else {
-					console.log(`can't go ${currentDir}`);
+					//console.log(`can't go ${currentDir}`);
 					blocked.push(currentDir);
 					currentDir = this.chooseDirection(blocked);
 					findUnvisited();
 				}
-			} else {
-				console.log(3);
-				currentDir = this.chooseDirection(blocked);
-				findUnvisited();
 			}
 		};
 		this.currentCell.visit();
-		console.log(`current cell: ${this.currentCell.location[0]},${this.currentCell.location[1]}`);
-		let currentDir = this.chooseDirection();
-		let blocked = [];
+		//console.log(`current cell: ${this.currentCell.location[0]},${this.currentCell.location[1]}`);
+		let currentDir = this.chooseDirection(),
+			blocked = [],
+			randomness = 10; //Controls twistiness of maze, between 1-100.
 		findUnvisited();
 	}
 }
