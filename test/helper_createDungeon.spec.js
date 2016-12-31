@@ -12,13 +12,18 @@ describe("Dungeon", () => {
 	});
 	describe(".map", () => {
 		it("should allow the player to access any floor tile from any other floor tile", () => {
-			//Create player on a random floor tile
+			const visited = dungeon._map.visited,
+				start = dungeon._map.chooseCell(visited),
+				end = dungeon._map.chooseCell(visited);
 
+			let forward = "north";
 
-			//Choose destination tile
-
-
-			//Move player to destination
+			const moveToExit = (start, end) => {
+				current = start;
+				if (current.exits[forward]) {
+					moveToExit();
+				}
+			};
 		});
 			
 	});
