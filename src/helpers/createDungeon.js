@@ -126,9 +126,9 @@ export class DungeonMap {
 		}
 	}
 
-	move(dir) {
-		let x = this.currentCell.location[0],
-			y = this.currentCell.location[1];
+	move(dir, from = this.currentCell) {
+		let x = from.location[0],
+			y = from.location[1];
 		switch(dir) {
 			case "north":
 				if (y <= 0) { break; }
@@ -149,7 +149,7 @@ export class DungeonMap {
 			default:
 				break;
 		}
-		this.currentCell = this.map[x][y];
+		return this.map[x][y];
 	}
 
 	tunnel(dir) {
@@ -159,22 +159,22 @@ export class DungeonMap {
 			case "north":
 				if (y <= 0) { break; }
 				this.currentCell.exits.north = true;
-				this.move('north');
+				this.currentCell = this.move('north');
 				break;
 			case "east":
 				if (x >= this.width - 1) { break; }
 				this.currentCell.exits.east = true;
-				this.move('east');
+				this.currentCell = this.move('east');
 				break;
 			case "south":
 				if (y >= this.height - 1) { break; }
 				this.currentCell.exits.south = true;
-				this.move('south');
+				this.currentCell = this.move('south');
 				break;
 			case "west":
 				if (x <= 0) { break; }
 				this.currentCell.exits.west = true;
-				this.move('west');
+				this.currentCell = this.move('west');
 				break;
 			default:
 				break;

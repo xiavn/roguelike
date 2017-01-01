@@ -124,16 +124,45 @@ describe("DungeonMap", () => {
 		});
 			
 	});
-	describe(".notVisited", () => {
-		it("should return an array of non visited tiles", () => {
+
+	describe(".move(dir, from)", () => {
+		it("returns the cell in the given direction ", () => {
+			const moveDungeon = new DungeonMap(5,5);
+			const start = moveDungeon.map[3][3];
+			expect(moveDungeon.move('north', start)).to.equal( moveDungeon.map[3][2]);
+			expect(moveDungeon.move('south', start)).to.equal( moveDungeon.map[3][4]);
+			expect(moveDungeon.move('east', start)).to.equal( moveDungeon.map[4][3]);
+			expect(moveDungeon.move('west', start)).to.equal( moveDungeon.map[2][3]);
+			expect(moveDungeon.move('north',  moveDungeon.map[0][0])).to.equal( moveDungeon.map[0][0]);
+		});
+			
+	});
+	describe(".notVisited and .visited", () => {
+		it("should return an array of non visited tiles and visited tiles", () => {
 			const smallMap = new DungeonMap(2,2);
 			expect(smallMap.notVisited).to.have.length(4);
 			expect(smallMap.notVisited).to.deep.include.members([[0,0],[0,1],[1,1],[1,0]]);
+			expect(smallMap.visited).to.have.length(0);
 			smallMap.map[0][0].visited = true;
 			expect(smallMap.notVisited).to.have.length(3);
 			expect(smallMap.notVisited).to.deep.include.members([[0,1],[1,1],[1,0]]);
+			expect(smallMap.visited).to.have.length(1);
+			expect(smallMap.visited).to.deep.include.members([[0,0]]);
 		});
 	});
+
+	describe(".cellsOfType(type)", () => {
+		it("should return an array of cells of a certain type", () => {
+			const smallMap = new DungeonMap(2,2);
+			expect(smallMap.cellsOfType("wall")).to.have.length(4);
+			smallMap.map[0][0].type = "floor";
+			expect(smallMap.cellsOfType("wall")).to.have.length(3);
+			expect(smallMap.cellsOfType("floor")).to.have.length(1);
+			expect(smallMap.cellsOfType("floor")).to.deep.include.members([[0,0]]);
+		});
+
+	});
+		
 		
 	describe(".chooseCell(list)", () => {
 		it("should select a random cell", () => {
