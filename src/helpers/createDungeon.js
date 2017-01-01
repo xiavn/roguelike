@@ -48,7 +48,7 @@ export class DungeonMap {
 		return available;
 	}
 
-	get cellType(type) {
+	cellsOfType(type) {
 		let available = [];
 		for(let i = 0; i < this.width; i++) {
 			for(let p = 0; p < this.height; p++) {
@@ -132,22 +132,18 @@ export class DungeonMap {
 		switch(dir) {
 			case "north":
 				if (y <= 0) { break; }
-				this.currentCell.exits.north = true;
 				y--;
 				break;
 			case "east":
 				if (x >= this.width - 1) { break; }
-				this.currentCell.exits.east = true;
 				x++;
 				break;
 			case "south":
 				if (y >= this.height - 1) { break; }
-				this.currentCell.exits.south = true;
 				y++;
 				break;
 			case "west":
 				if (x <= 0) { break; }
-				this.currentCell.exits.west = true;
 				x--;
 				break;
 			default:
@@ -163,27 +159,26 @@ export class DungeonMap {
 			case "north":
 				if (y <= 0) { break; }
 				this.currentCell.exits.north = true;
-				y--;
+				this.move('north');
 				break;
 			case "east":
 				if (x >= this.width - 1) { break; }
 				this.currentCell.exits.east = true;
-				x++;
+				this.move('east');
 				break;
 			case "south":
 				if (y >= this.height - 1) { break; }
 				this.currentCell.exits.south = true;
-				y++;
+				this.move('south');
 				break;
 			case "west":
 				if (x <= 0) { break; }
 				this.currentCell.exits.west = true;
-				x--;
+				this.move('west');
 				break;
 			default:
 				break;
 		}
-		this.currentCell = this.map[x][y];
 	}
 
 	createMaze() {
