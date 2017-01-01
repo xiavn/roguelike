@@ -12,18 +12,39 @@ describe("Dungeon", () => {
 	});
 	describe(".map", () => {
 		it("should allow the player to access any floor tile from any other floor tile", () => {
-			const visited = dungeon._map.visited,
-				start = dungeon._map.chooseCell(visited),
-				end = dungeon._map.chooseCell(visited);
+			let dungeon = new Dungeon(14,14);
 
-			let forward = "north";
+			let floor = dungeon._map.cellsOfType("floor"),
+				begin = dungeon._map.chooseCell(floor),
+				finish = dungeon._map.chooseCell(floor);
 
-			const moveToExit = (start, end) => {
-				current = start;
-				if (current.exits[forward]) {
-					moveToExit();
+			let directions = ["north", "south", "east", "west"];
+
+			console.log(begin);
+			console.log(finish);
+
+			const moveToExit = (start, end, breadcrumbs = []) => {
+				if (start === end) {
+					console.log(breadcrumbs);
+					return true;
+				} else {
+					let current = start;
+					breadcrumbs.push(current.location);
+					for (let i = 0; i < 4; i++) {
+						let dir = directions[i];
+						if (current.exits[dir]) {
+							current = dungeon._map.move(dir, start);
+							if (breadcrumbs.indexOf(current.location) === -1) {
+								if (moveToExit(current, end, breadcrumbs)) {
+									return true;
+								}
+							}
+						}
+					}
 				}
 			};
+
+			expect(moveToExit(begin, finish)).to.be.true;
 		});
 			
 	});
