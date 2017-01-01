@@ -48,6 +48,18 @@ export class DungeonMap {
 		return available;
 	}
 
+	get cellType(type) {
+		let available = [];
+		for(let i = 0; i < this.width; i++) {
+			for(let p = 0; p < this.height; p++) {
+				if (this.map[i][p].type === type) {
+					available.push([i,p]);
+				}
+			}
+		}
+		return available;
+	}
+
 	createStartMap() {
 		let map = [];
 		for (let i = 0; i < this.width; i++) {
