@@ -12,7 +12,7 @@ describe("Dungeon", () => {
 	});
 	describe(".map", () => {
 		it("should allow the player to access any floor tile from any other floor tile", () => {
-			let dungeon = new Dungeon(14,14);
+			let dungeon = new Dungeon(30,30);
 
 			let floor = dungeon._map.cellsOfType("floor"),
 				begin = dungeon._map.chooseCell(floor),
@@ -23,23 +23,30 @@ describe("Dungeon", () => {
 			console.log(begin);
 			console.log(finish);
 
+			console.log(dungeon._map.mapPrint);
+
 			const moveToExit = (start, end, breadcrumbs = []) => {
 				if (start === end) {
-					console.log(breadcrumbs);
+					console.log(`did it: ${breadcrumbs}`);
 					return true;
-				} else {
-					let current = start;
-					breadcrumbs.push(current.location);
-					for (let i = 0; i < 4; i++) {
-						let dir = directions[i];
-						if (current.exits[dir]) {
-							current = dungeon._map.move(dir, start);
-							if (breadcrumbs.indexOf(current.location) === -1) {
-								if (moveToExit(current, end, breadcrumbs)) {
-									return true;
-								}
-							}
+				}
+				if (breadcrumbs.indexOf(start.location) !== -1) {
+					//console.log(`been here! ${start.location}`);
+					return false;
+				}
+				let trail = [...breadcrumbs, start.location];
+				//console.log(`trail so far: ${trail}`);
+				for (let i = 0; i < 4; i++) {
+					let dir = directions[i];
+					if (start.exits[dir]) {
+						
+						let current = dungeon._map.move(dir, start);
+						//console.log(`going: ${dir}`);
+						if(moveToExit(current, end, trail)) {
+							return true;
 						}
+					} else {
+						//console.log(`${start.location} - can't go ${dir}`);
 					}
 				}
 			};
@@ -211,15 +218,27 @@ describe("DungeonMap", () => {
 		});
 	});
 	describe(".createMaze", () => {
+		let map = dungeonMap.map;
+		dungeonMap.createMaze();
 		it("should have visited every tile", () => {
-			let map = dungeonMap.map;
-			dungeonMap.createMaze();
 			map.forEach((column) => {
 				column.forEach((cell) => {
 					expect(cell.visited).to.equal(true);
 				});
 			});
 		});
+		it("should not use every tile", () => {
+			let count = 0;
+			map.forEach((column) => {
+				column.forEach((cell) => {
+					if (cell.type === "rock") {
+						count++;
+					}
+				});
+			});
+			expect(count).to.be.at.least(1);
+		});
+			
 	});
 		
 });

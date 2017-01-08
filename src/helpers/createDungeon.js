@@ -24,6 +24,20 @@ export class DungeonMap {
 		this.currentCell = this.chooseCell();
 	}
 
+	get mapPrint() {
+		let rows = [];
+		for (let i = 0; i < this.height; i++) {
+			rows.push([]);
+			for (let p = 0; p< this.width; p++) {
+				let symbol = this.map[p][i].type ==='floor' ? 'X' : ' ';
+				rows[i] += symbol;
+			}
+		}
+		
+		let string = rows.join('\n');
+		return string;
+	}
+
 	get notVisited() {
 		let available = [];
 		for(let i = 0; i < this.width; i++) {
@@ -214,12 +228,63 @@ export class DungeonMap {
 				}
 			}
 		};
+
+		const countExits = (cell) => {
+			let count = 0;
+			for (let exit in cell.exits) {
+				if (cell.exits[exit]) {
+					count++;
+				}
+			}
+			return count;
+		};
+
+		const makeSparse = (count) => {
+			for (let i = 0; i < count; i++) {
+				let deadEnds = [];
+				this.map.forEach((column) => {
+					column.forEach((cell) => {
+						if (countExits(cell) === 1) {
+							deadEnds.push(cell);
+						}
+					});
+				});
+
+				deadEnds.forEach((cell) => {
+					for (let exit in cell.exits) {
+						if (cell.exits[exit]) {
+							cell.type = "rock";
+							cell.exits[exit] = false;
+							let neighbour = this.move(exit, cell);
+							switch(exit) {
+								case 'north':
+									neighbour.exits.south = false;
+									break;
+								case 'south':
+									neighbour.exits.north = false;
+									break;
+								case 'east':
+									neighbour.exits.west = false;
+									break;
+								case 'west':
+									neighbour.exits.east = false;
+									break;
+							}
+						}
+					}
+				});
+			}
+
+			
+		};
+
 		this.currentCell.visit();
 		//console.log(`current cell: ${this.currentCell.location[0]},${this.currentCell.location[1]}`);
 		let currentDir = this.chooseDirection(),
 			blocked = [],
 			randomness = 10; //Controls twistiness of maze, between 1-100.
 		findUnvisited();
+		makeSparse(35);
 	}
 }
 
