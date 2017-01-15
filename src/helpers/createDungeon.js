@@ -286,6 +286,10 @@ export class DungeonMap {
 			}
 		};
 
+		const createRoom = () => {
+
+		};
+
 		const digTunnel = () => {
 			if (blocked.length === 4) {
 				//console.log(`all directions blocked`);
