@@ -1,7 +1,7 @@
 import DungeonMap from "./MapMaze";
 
 export default class Dungeon {
-	constructor(width = 40, height = 40) {
+	constructor(width = 30, height = 30) {
 		this._map = new DungeonMap(width, height);
 		//this._map.createMaze();
 	}

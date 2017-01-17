@@ -17,13 +17,18 @@ export default class Dwarf extends Entity {
 		}
 	}
 
-	digTunnel(blocked = [], randomness = 25) {
+	digTunnel(open = [], blocked = [], randomness = 25) {
+		if (open.indexOf(this.cell) === -1) {
+			open.push(this.cell);
+		}
 		if (blocked.length === 4) {
+			open.splice(open.indexOf(this.cell),1);
 			//console.log(`all directions blocked`);
-			if (this.cellsOfType("rock").length > 0) { //There are still rock tiles
-				this.cell = this.map.chooseCell(this.cellsOfType("floor")); //Choose new excavated tile
+			if (this.dungeon.cellsOfType("rock").length > 0) { //There are still rock tiles
+				//console.log(this.dungeon.cellsOfType("rock").length);
+				this.cell = this.dungeon.chooseCell(open); //Choose new excavated tile
 				this.direction = this.compass.spin();
-				this.digTunnel();
+				this.digTunnel(open);
 			} else {
 				//console.log("all cells visited!");
 			}
@@ -31,19 +36,20 @@ export default class Dwarf extends Entity {
 			let x = this.x + this.direction.location[0],
 				y = this.y + this.direction.location[1];
 			if (this.dungeon.isInside(x,y) && this.dungeon.isType("rock",x,y)) { //Is direction valid?
+				//console.log(`digging ${this.direction.name}`);
 				this.dig();
 				if (diceRoller("d100") < randomness) {
 					//change direction
 					//console.log("change!");
 					this.direction = this.compass.spin([this.direction]);
+					//console.log(this.direction.name);
 				}
-				//console.log(`moving ${currentDir}`);
-				this.digTunnel(blocked);
+				this.digTunnel(open);
 			} else {
-				//console.log(`can't go ${currentDir}`);
+				//console.log(`can't go ${this.direction.name}`);
 				blocked.push(this.direction);
 				this.direction = this.compass.spin(blocked);
-				this.digTunnel(blocked);
+				this.digTunnel(open, blocked);
 			}
 		}
 	}

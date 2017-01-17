@@ -25,6 +25,16 @@ describe("Dwarf", () => {
 			expect(finish.exits).to.eql(["south"]);
 			expect(finish.type).to.equal("floor");
 		});
+	});
+	describe("digTunnel(blocked, randomness)", () => {
+		it("fills every cell in the map with a floor tile", () => {
+			const map = new Map(20,20);
+			const cell = map.chooseCell();
+			const dwarf = new Dwarf(map, cell);
+			dwarf.digTunnel();
+			expect(map.cellsOfType("floor").length).to.equal(20*20);
+		});
 			
 	});
+		
 });

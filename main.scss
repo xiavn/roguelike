@@ -23,12 +23,11 @@ body {
 .cell {
 	width: 15px;
 	height: 15px;
-	border: 1px solid grey;
+	border: 1px solid black;
 }
 
 .cell.rock {
 	background-color: black;
-	border-color: black;
 }
 
 .cell.floor {
@@ -37,19 +36,19 @@ body {
 }
 
 .cell.floor.east {
-	border-right-color: black;
+	border-right-color: grey;
 }
 
 .cell.floor.north {
-	border-top-color: black;
+	border-top-color: grey;
 }
 
 .cell.floor.west {
-	border-left-color: black;
+	border-left-color: grey;
 }
 
 .cell.floor.south {
-	border-bottom-color: black;
+	border-bottom-color: grey;
 }
 
 .cell.true {

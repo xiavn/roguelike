@@ -22,11 +22,9 @@ export const Column = ( {column} ) => {
 
 export const Cell = ( {type, exits} ) => {
 	let walls = '';
-	for (let exit in exits) {
-		if (!exits[exit]) {
-			walls += ` ${exit}`;
-		}
-	}
+	exits.forEach((exit) => {
+		walls += ` ${exit}`;
+	});
 	let tile = `cell ${type}${walls}`;
 	return <div className={tile}></div>;
 };
