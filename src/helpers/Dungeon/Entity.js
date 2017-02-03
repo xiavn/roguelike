@@ -19,11 +19,13 @@ export default class Entity {
 	}
 
 	move(dir = this.direction) {
+		console.log(`go: ${this.cell.location}`);
 		let x = this.x + dir.location[0],
 			y = this.y + dir.location[1];
 
-		if (this.assess("floor")) {
+		if (this.assess("floor", dir)) {
 			this.cell = this.dungeon.map[x][y];
+			console.log(`end: ${this.cell.location}`);
 		}
 	}
 
