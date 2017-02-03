@@ -23,7 +23,7 @@ export const Column = ( {column} ) => {
 export const Cell = ( {type, exits} ) => {
 	let walls = '';
 	exits.forEach((exit) => {
-		walls += ` ${exit}`;
+		walls += ` ${exit.name}`;
 	});
 	let tile = `cell ${type}${walls}`;
 	return <div className={tile}></div>;

@@ -9,7 +9,7 @@ import Direction from "../src/helpers/Dungeon/Direction";
 
 
 describe("Entity", () => {
-	const maze = new Maze(20,20);
+	const maze = new Map(20,20);
 	const cell = maze.chooseCell();
 	const entity = new Entity(maze, cell);
 	describe(".dungeon", () => {
@@ -47,15 +47,34 @@ describe("Entity", () => {
 			const goNorth = new Entity(maze, cell);
 			goNorth.cell = maze.map[0][1];
 			goNorth.cell.type = "floor";
-			maze.map[0][0].type = "floor"
+			maze.map[0][0].type = "floor";
 			maze.map[0][0].createExit("south");
 			goNorth.cell.createExit("north");
 			goNorth.direction = goNorth.compass.north;
 			goNorth.move();
 			expect(goNorth.cell).to.eql(maze.map[0][0]);
 		});
-			
 	});
-		
+	describe(".assess(dir)", () => {
+		it("checks if the cell in the current direction is in bounds and a rock", () => {
+			entity.cell = maze.map[0][5];
+			entity.direction = entity.compass.north;
+			maze.map[0][4].type = "rock";
+			expect(entity.assess()).to.eql(true);
+		});
+		it("checks if the cell in the current direction is in bounds and a specified type", () => {
+			entity.cell = maze.map[1][5];
+			entity.direction = entity.compass.north;
+			maze.map[1][4].type = "floor";
+			expect(entity.assess("floor")).to.eql(true);
+			entity.direction = entity.compass.south;
+			expect(entity.assess("floor")).to.eql(false);
+		});
+		it("fails if out of bounds", () => {
+			entity.cell = maze.map[0][0];
+			entity.direction = entity.compass.north;
+			expect(entity.assess("floor")).to.eql(false);
+		});
+	});
 });
 	

@@ -39,11 +39,15 @@ export default class DungeonMap {
 		return available;
 	}
 
-	isInside(x,y) {
+	isInside(direction, cell) {
+		const x = cell.location[0] + direction.location[0],
+			y = cell.location[1] + direction.location[1];
 		return x < 0 || y < 0 || x >= this.width || y >= this.height ? false : true;
 	}
 
-	isType(type,x,y) {
+	isType(type, direction, cell) {
+		const x = cell.location[0] + direction.location[0],
+			y = cell.location[1] + direction.location[1];
 		return this.map[x][y].type === type ? true : false;
 	}
 

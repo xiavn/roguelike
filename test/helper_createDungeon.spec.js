@@ -2,7 +2,7 @@ import { expect } from "chai";
 
 import Dungeon, { DungeonMap, Cell, dHeight, dWidth} from "../src/helpers/createDungeon";
 
-const dungeon = new Dungeon();
+//const dungeon = new Dungeon();
 
 // describe("Dungeon", () => {
 // 	// describe("_map", () => {

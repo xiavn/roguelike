@@ -21,18 +21,18 @@ describe("Dwarf", () => {
 			dwarf.direction = dwarf.compass.north;
 			dwarf.dig();
 			expect(dwarf.cell).to.eql(finish);
-			expect(start.exits).to.eql(["north"]);
-			expect(finish.exits).to.eql(["south"]);
+			expect(start.exits).to.eql([dwarf.compass.north]);
+			expect(finish.exits).to.eql([dwarf.compass.south]);
 			expect(finish.type).to.equal("floor");
 		});
 	});
-	describe("digTunnel(blocked, randomness)", () => {
+	describe("checkRoute(breadcrumbs, blocked, randomness)", () => {
 		it("fills every cell in the map with a floor tile", () => {
-			const map = new Map(20,20);
+			const map = new Map(10,10);
 			const cell = map.chooseCell();
 			const dwarf = new Dwarf(map, cell);
-			dwarf.digTunnel();
-			expect(map.cellsOfType("floor").length).to.equal(20*20);
+			dwarf.checkRoute();
+			expect(map.cellsOfType("floor").length).to.equal(10*10);
 		});
 			
 	});

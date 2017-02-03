@@ -105,7 +105,7 @@ export default class Maze extends Map {
 		const Dorn = new Dwarf(this, this.chooseCell());
 		Dorn.cell.excavate();
 		//console.log(`current cell: ${this.currentCell.location[0]},${this.currentCell.location[1]}`);
-		Dorn.digTunnel();
+		Dorn.checkRoute();
 		// makeSparse(40);
 		// removeDeadEnds(80);
 	}

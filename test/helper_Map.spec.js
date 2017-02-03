@@ -25,24 +25,24 @@ describe("Map", () => {
 			expect(map.cellsOfType("floor")).to.have.length(0);
 		});		
 	});
-	describe(".isInside(x,y)", () => {
+	describe(".isInside(direction, cell)", () => {
 		it("returns true if the co-ordinates are inside the map", () => {
-			expect(map.isInside(1,7)).to.equal(true);
-			expect(map.isInside(12,23)).to.equal(true);
+			expect(map.isInside(map.compass.north,map.map[1][7])).to.equal(true);
+			expect(map.isInside(map.compass.north,map.map[12][23])).to.equal(true);
 		});
 		it("returns false if the co-ordinates are outside the map", () => {
-			expect(map.isInside(-1,8)).to.equal(false);
-			expect(map.isInside(3,80)).to.equal(false);
+			expect(map.isInside(map.compass.north,map.map[0][0])).to.equal(false);
+			expect(map.isInside(map.compass.south,map.map[0][29])).to.equal(false);
 		});
 	});
-	describe(".isType(type,x,y)", () => {
+	describe(".isType(type,direction, cell)", () => {
 		it("returns true if the cell at the co-ordinates matches the type", () => {
-			expect(map.isType("rock",1,1)).to.equal(true);
-			expect(map.isType("rock",16,21)).to.equal(true);
+			expect(map.isType("rock",map.compass.north,map.map[1][1])).to.equal(true);
+			expect(map.isType("rock",map.compass.north,map.map[17][27])).to.equal(true);
 		});
 		it("returns false if cell at co-ordinates does not match type", () => {
-			expect(map.isType("floor",1,1)).to.equal(false);
-			expect(map.isType("floor",13,10)).to.equal(false);
+			expect(map.isType("floor",map.compass.north,map.map[1][7])).to.equal(false);
+			expect(map.isType("floor",map.compass.north,map.map[11][17])).to.equal(false);
 		});
 	});
 	describe(".createStartMap()", () => {

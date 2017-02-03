@@ -9,47 +9,70 @@ export default class Dwarf extends Entity {
 	dig(dir = this.direction) {
 		let x = this.x + dir.location[0],
 			y = this.y + dir.location[1];
-		if (this.dungeon.isInside(x,y) && this.dungeon.isType("rock",x,y)) {
-			this.cell.createExit(dir.name);
+		if (this.assess()) {
+			this.cell.createExit(dir);
 			this.cell = this.dungeon.map[x][y];
 			this.cell.excavate();
-			this.cell.createExit(dir.opposite);
+			this.cell.createExit(this.compass[dir.opposite]);
 		}
 	}
 
-	digTunnel(open = [], blocked = [], randomness = 25) {
-		if (open.indexOf(this.cell) === -1) {
-			open.push(this.cell);
+	checkRoute(breadcrumbs = [], blocked = [], randomness = 25) {
+		//Add the cell to the array of breadcrumbs, if not already there.
+		if (breadcrumbs.indexOf(this.cell) === -1) {
+			breadcrumbs.push(this.cell);
 		}
-		if (blocked.length === 4) {
-			open.splice(open.indexOf(this.cell),1);
-			//console.log(`all directions blocked`);
-			if (this.dungeon.cellsOfType("rock").length > 0) { //There are still rock tiles
-				//console.log(this.dungeon.cellsOfType("rock").length);
-				this.cell = this.dungeon.chooseCell(open); //Choose new excavated tile
-				this.direction = this.compass.spin();
-				this.digTunnel(open);
-			} else {
-				//console.log("all cells visited!");
-			}
-		} else if (blocked.indexOf(this.direction) === -1) { //The current direction is not blocked
-			let x = this.x + this.direction.location[0],
-				y = this.y + this.direction.location[1];
-			if (this.dungeon.isInside(x,y) && this.dungeon.isType("rock",x,y)) { //Is direction valid?
-				//console.log(`digging ${this.direction.name}`);
-				this.dig();
-				if (diceRoller("d100") < randomness) {
-					//change direction
-					//console.log("change!");
-					this.direction = this.compass.spin([this.direction]);
-					//console.log(this.direction.name);
+		//Add exits to blocked
+		if (blocked.length < 4 && this.cell.exits.length > 0) {
+			this.cell.exits.forEach((direction, i) => {
+				if (!~blocked.indexOf(direction)) {
+					blocked.push(this.cell.exits[i]);
 				}
-				this.digTunnel(open);
+			});
+		}
+		//If all directions on this cell are blocked by already excavated cells.
+		if (blocked.length === 4) {
+			//Remove this cell from the breadcrumbs array.
+			breadcrumbs.splice(breadcrumbs.indexOf(this.cell),1);
+			//If there are still unexcavated cells.
+			if (this.dungeon.cellsOfType("rock").length > 0) {
+				this.cell = this.dungeon.chooseCell(breadcrumbs);
+				blocked = [...this.cell.exits];
+				this.checkRoute(breadcrumbs,blocked);
 			} else {
-				//console.log(`can't go ${this.direction.name}`);
+				return;
+				//All cells are visited, end recursion.
+			}
+		//The current direction is blocked or already an exit on this cell
+		} else if (~blocked.indexOf(this.direction)) {
+			//Get a new direction
+			this.direction = this.compass.spin(blocked);
+			//Dig a new tunnel.
+			this.checkRoute(breadcrumbs, blocked);
+		//The current direction is not blocked on this cell.
+		} else {
+			//Check if the cell in current direction is inside the map and is rock.
+			if (this.assess()) {
+				//Actually dig the tunnel.
+				this.dig();
+				//Make a randomness check.
+				if (diceRoller("d100") < randomness) {
+					//Change direction
+					this.direction = this.compass.spin([this.direction]);
+				}
+				//Dig a new tunnel.
+				blocked = [...this.cell.exits];
+				this.checkRoute(breadcrumbs);
+			//The cell in current direction is not suitable.
+			} else {
+				//Add it to the blocked array.
 				blocked.push(this.direction);
-				this.direction = this.compass.spin(blocked);
-				this.digTunnel(open, blocked);
+				//If still directions left, find a new unblocked direction.
+				if(blocked.length < 4) {
+					this.direction = this.compass.spin(blocked);
+				}
+				//Dig a new tunnel.
+				this.checkRoute(breadcrumbs, blocked);
 			}
 		}
 	}

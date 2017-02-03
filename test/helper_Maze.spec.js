@@ -7,7 +7,7 @@ import Cell from "../src/helpers/Dungeon/Cell";
 import Entity from "../src/helpers/Dungeon/Entity";
 
 describe("Maze", () => {
-	const maze = new Maze(20,30);
+	const maze = new Maze(10,10);
 	it("is a type of Map", () => {
 		expect(maze).to.be.an.instanceOf(Map);
 	});
