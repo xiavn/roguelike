@@ -7,18 +7,11 @@ import Cell from "../src/helpers/Dungeon/Cell";
 import Entity from "../src/helpers/Dungeon/Entity";
 
 describe("Maze", () => {
-	const maze = new Maze(10,10);
+	const maze = new Maze(15,15);
 	it("is a type of Map", () => {
 		expect(maze).to.be.an.instanceOf(Map);
 	});
 	describe(".createMaze()", () => {
-		it("causes every tile to be a floor", () => {
-			maze.map.forEach((column) => {
-				column.forEach((cell) => {
-					expect(cell.type).to.equal("floor");
-				});
-			});
-		});	
 		it("should create a maze that is 'perfect' - every tile can be reached from every other", () => {
 			let floor = maze.cellsOfType("floor"),
 				begin = maze.chooseCell(floor),

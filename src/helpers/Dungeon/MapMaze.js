@@ -106,7 +106,7 @@ export default class Maze extends Map {
 		Dorn.cell.excavate();
 		//console.log(`current cell: ${this.currentCell.location[0]},${this.currentCell.location[1]}`);
 		Dorn.checkRoute();
-		// makeSparse(40);
+		Dorn.collapseDeadends(40);
 		// removeDeadEnds(80);
 	}
 }

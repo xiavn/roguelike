@@ -17,6 +17,17 @@ export default class Dwarf extends Entity {
 		}
 	}
 
+	collapse(cell = this.cell) {
+		this.cell = cell;
+		cell.bury();
+		cell.exits.forEach((direction) => {
+			cell.removeExit(direction);
+			this.move(direction);
+			this.cell.removeExit(this.compass[direction.opposite]);
+			this.cell = cell;
+		});
+	}
+
 	checkRoute(breadcrumbs = [], blocked = [], randomness = 25) {
 		//Add the cell to the array of breadcrumbs, if not already there.
 		if (breadcrumbs.indexOf(this.cell) === -1) {
@@ -74,6 +85,23 @@ export default class Dwarf extends Entity {
 				//Dig a new tunnel.
 				this.checkRoute(breadcrumbs, blocked);
 			}
+		}
+	}
+
+	collapseDeadends(count) {
+		for (let i = 0; i < count; i++) {
+			let deadEnds = [];
+			this.dungeon.map.forEach((column) => {
+				column.forEach((cell) => {
+					if (cell.isDeadend()) {
+						deadEnds.push(cell);
+					}
+				});
+			});
+
+			deadEnds.forEach((cell) => {
+				this.collapse(cell);
+			});
 		}
 	}
 }

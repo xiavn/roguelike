@@ -13,9 +13,20 @@ export default class Cell {
 		this.type = "floor";
 	}
 
+	bury() {
+		this.type = "rock";
+	}
+
 	createExit(dir) {
-		if (this.exits.indexOf(dir) === -1) {
+		if (!~this.exits.indexOf(dir)) {
 			this.exits.push(dir);
+		}
+	}
+
+	removeExit(dir) {
+		const index = this.exits.indexOf(dir);
+		if (~index) {
+			this.exits.splice(index,1);
 		}
 	}
 }
