@@ -9,23 +9,47 @@ import Compass from "../src/helpers/Dungeon/Compass";
 import Direction from "../src/helpers/Dungeon/Direction";
 
 describe("Dwarf", () => {
-	describe(".dig(dir)", () => {
+	describe(".dig(dir, length)", () => {
 		it("creates an exit in current cell, moves to new cell, excavates, and creates exit", () => {
-			const map = new Map(20,20);
-			const cell = map.chooseCell();
-			const dwarf = new Dwarf(map, cell);
-
-			const start = map.map[0][1],
-				finish =  map.map[0][0];
-			dwarf.cell = start;
-			dwarf.direction = dwarf.compass.north;
-			dwarf.dig();
+			const map = new Map(20,20),
+				start = map.map[0][1],
+				finish =  map.map[0][0],
+				dwarf = new Dwarf(map, start);
+			dwarf.dig(dwarf.compass.north);
 			expect(dwarf.cell).to.eql(finish);
 			expect(start.exits).to.eql([dwarf.compass.north]);
 			expect(finish.exits).to.eql([dwarf.compass.south]);
 			expect(finish.type).to.equal("floor");
 		});
+		it("carries on in the same direction for the length", () => {
+			const map = new Map(20,20);
+			const dwarf = new Dwarf(map, map.map[0][0]);
+			expect(map.cellsOfType("floor").length).to.eql(0);
+			dwarf.dig(dwarf.compass.south,5);
+			expect(map.cellsOfType("floor").length).to.eql(5);
+			dwarf.dig(dwarf.compass.south,10);
+			expect(map.cellsOfType("floor").length).to.eql(15);
+		});	
 	});
+	describe(".collapse(cell)", () => {
+		it("moves the dwarf to that cell", () => {
+			const map = new Map(20,20);
+			const dwarf = new Dwarf(map, map.map[0][0]);
+			dwarf.collapse(map.map[0][5]);
+			expect(dwarf.cell).to.equal(map.map[0][5]);
+		});
+		it("turns the cell to rock", () => {
+			
+		});
+		it("removes the exits in this cell", () => {
+			
+		});
+		it("removes the exits in corresponding neighbouring cells", () => {
+			
+		});
+			
+	});
+		
 	describe("checkRoute(breadcrumbs, blocked, randomness)", () => {
 		it("fills every cell in the map with a floor tile", () => {
 			const map = new Map(10,10);
@@ -34,7 +58,24 @@ describe("Dwarf", () => {
 			dwarf.checkRoute();
 			expect(map.cellsOfType("floor").length).to.equal(10*10);
 		});
-			
+	});
+	describe("collapseDeadEnds(count)", () => {
+		it("collapses all the deadEnds on the map", () => {
+			const map = new Map(10,10);
+			const dwarf = new Dwarf(map, map.map[0][0]);
+			dwarf.dig(dwarf.compass.south);
+			expect(map.deadEnds.length).to.eql(2);
+			dwarf.collapseDeadEnds();
+			expect(map.deadEnds.length).to.eql(0);
+		});
+		it("collapses all deadends a time equal to count", () => {
+			const map = new Map(10,10);
+			const dwarf = new Dwarf(map, map.map[0][0]);
+			dwarf.dig(dwarf.compass.south, 4);
+			expect(map.deadEnds.length).to.eql(2);
+			dwarf.collapseDeadEnds(2);
+			expect(map.deadEnds.length).to.eql(0);
+		});
 	});
 		
 });
