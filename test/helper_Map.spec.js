@@ -17,6 +17,21 @@ describe("Map", () => {
 			expect(map.compass).to.be.an.instanceOf(Compass);
 		});
 	});
+	describe(".deadEnds", () => {
+		it("is an array of all the dead ends in the map", () => {
+			const deadEndy = new Map(5,5);
+			expect(deadEndy.deadEnds).to.be.an("array")
+				.with.length(0);
+			deadEndy.map[0][0].createExit(deadEndy.compass.north);
+			expect(deadEndy.deadEnds.length).to.eql(1);
+			deadEndy.map[0][1].createExit(deadEndy.compass.north);
+			expect(deadEndy.deadEnds.length).to.eql(2);
+			deadEndy.map[0][1].createExit(deadEndy.compass.south);
+			expect(deadEndy.deadEnds.length).to.eql(1);
+		});
+			
+	});
+		
 	describe(".cellsOfType", () => {
 		it("takes a type of cell and returns an array of matching cells", () => {
 			expect(map.cellsOfType("rock")).to.be.an("array")

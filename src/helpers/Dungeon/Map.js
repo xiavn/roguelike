@@ -27,6 +27,18 @@ export default class DungeonMap {
 		return string;
 	}
 
+	get deadEnds() {
+		let deadEnds = [];
+		this.map.forEach((column) => {
+			column.forEach((cell) => {
+				if (cell.isDeadend()) {
+					deadEnds.push(cell);
+				}
+			});
+		});
+		return deadEnds;
+	}
+
 	cellsOfType(type) {
 		let available = [];
 		for(let i = 0; i < this.width; i++) {
