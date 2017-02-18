@@ -50,7 +50,6 @@ describe("Dwarf", () => {
 			expect(map.map[0][4].exits.length).to.equal(1);
 			expect(map.map[1][5].exits.length).to.equal(1);
 		});
-			
 	});
 		
 	describe("checkRoute(breadcrumbs, blocked, randomness)", () => {
@@ -80,5 +79,14 @@ describe("Dwarf", () => {
 			expect(map.deadEnds.length).to.eql(0);
 		});
 	});
-		
+	describe("connectDeadEnds(chance)", () => {
+		it("removes dead ends by connecting them to an existing corridor", () => {
+			const map = new Map(10,10);
+			const dwarf = new Dwarf(map, map.map[0][0]);
+			dwarf.dig(dwarf.compass.south, 5);
+			expect(map.deadEnds.length).to.equal(2);
+			dwarf.connectDeadEnds();
+			expect(map.deadEnds.length).to.equal(0);
+		});	
+	});
 });
