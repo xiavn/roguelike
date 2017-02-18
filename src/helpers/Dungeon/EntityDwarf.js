@@ -22,9 +22,10 @@ export default class Dwarf extends Entity {
 
 	collapse(cell = this.cell) {
 		this.cell = cell;
-		cell.bury();
-		cell.exits.forEach((direction) => {
-			cell.removeExit(direction);
+		this.cell.bury();
+		const exits = [...this.cell.exits];
+		exits.forEach((direction) => {
+			this.cell.removeExit(direction);
 			this.move(direction);
 			this.cell.removeExit(this.compass[direction.opposite]);
 			this.cell = cell;

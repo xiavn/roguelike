@@ -32,20 +32,23 @@ describe("Dwarf", () => {
 		});	
 	});
 	describe(".collapse(cell)", () => {
+		const map = new Map(20,20),
+			dwarf = new Dwarf(map, map.map[0][0]);
+		dwarf.dig(dwarf.compass.south, 5);
+		dwarf.dig(dwarf.compass.east, 5);
+		dwarf.collapse(map.map[0][5]);
 		it("moves the dwarf to that cell", () => {
-			const map = new Map(20,20);
-			const dwarf = new Dwarf(map, map.map[0][0]);
-			dwarf.collapse(map.map[0][5]);
 			expect(dwarf.cell).to.equal(map.map[0][5]);
 		});
 		it("turns the cell to rock", () => {
-			
+			expect(dwarf.cell.type).to.equal("rock");
 		});
 		it("removes the exits in this cell", () => {
-			
+			expect(dwarf.cell.exits.length).to.equal(0);
 		});
 		it("removes the exits in corresponding neighbouring cells", () => {
-			
+			expect(map.map[0][4].exits.length).to.equal(1);
+			expect(map.map[1][5].exits.length).to.equal(1);
 		});
 			
 	});
