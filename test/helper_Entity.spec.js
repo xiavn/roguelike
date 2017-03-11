@@ -55,7 +55,7 @@ describe("Entity", () => {
 			expect(goNorth.cell).to.eql(maze.map[0][0]);
 		});
 	});
-	describe(".assess(dir)", () => {
+	describe(".assess(types,dir)", () => {
 		it("checks if the cell in the current direction is in bounds and a rock", () => {
 			entity.cell = maze.map[0][5];
 			entity.direction = entity.compass.north;
@@ -66,14 +66,23 @@ describe("Entity", () => {
 			entity.cell = maze.map[1][5];
 			entity.direction = entity.compass.north;
 			maze.map[1][4].type = "floor";
-			expect(entity.assess("floor")).to.eql(true);
+			expect(entity.assess(["floor"])).to.eql(true);
 			entity.direction = entity.compass.south;
-			expect(entity.assess("floor")).to.eql(false);
+			expect(entity.assess(["floor"])).to.eql(false);
+		});
+		it("checks to see if the cell in the current direction is one of an array of types", () => {
+			entity.cell = maze.map[4][4];
+			entity.direction = entity.compass.north;
+			maze.map[4][3].type = "floor";
+			maze.map[4][5].type = "rock";
+			expect(entity.assess(["floor", "rock"])).to.eql(true);
+			entity.direction = entity.compass.south;
+			expect(entity.assess(["floor", "rock"])).to.eql(true);
 		});
 		it("fails if out of bounds", () => {
 			entity.cell = maze.map[0][0];
 			entity.direction = entity.compass.north;
-			expect(entity.assess("floor")).to.eql(false);
+			expect(entity.assess(["floor"])).to.eql(false);
 		});
 	});
 });

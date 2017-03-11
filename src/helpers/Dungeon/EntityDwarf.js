@@ -6,17 +6,27 @@ export default class Dwarf extends Entity {
 		super(dungeon, cell);
 	}
 
-	dig(dir = this.direction, length = 1) {
+	dig(dir = this.direction, length = 1, allowed = ["rock"]) {
 		while (length > 0) {
 			let x = this.x + dir.location[0],
 				y = this.y + dir.location[1];
-			if (this.assess("rock",dir)) {
+			if (this.assess(allowed,dir)) {
 				this.cell.createExit(dir);
 				this.cell = this.dungeon.map[x][y];
 				this.cell.excavate();
 				this.cell.createExit(this.compass[dir.opposite]);
 			}
 			length--;
+		}
+	}
+
+	digToTunnel() {
+		this.direction = this.compass.spin();
+		while(this.cell.exits.length < 2) {
+			console.log(this.cell);
+			if(this.dungeon.isInside(this.direction, this.cell)) {
+				this.dig(this.direction, 1, ["rock", "floor"]);
+			}
 		}
 	}
 
@@ -98,5 +108,14 @@ export default class Dwarf extends Entity {
 				this.collapse(cell);
 			});
 		}
+	}
+
+	connectDeadEnds(chance = 100) {
+		this.dungeon.deadEnds.forEach((cell) => {
+			if (diceRoller("d100") < chance) {
+				this.cell = cell;
+				this.digToTunnel;
+			}
+		});
 	}
 }

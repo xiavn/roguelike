@@ -11,21 +11,14 @@ describe("Maze", () => {
 	it("is a type of Map", () => {
 		expect(maze).to.be.an.instanceOf(Map);
 	});
-	describe(".createMaze()", () => {
+	describe.skip(".createMaze()", () => {
 		it("should create a maze that is 'perfect' - every tile can be reached from every other", () => {
 			let floor = maze.cellsOfType("floor"),
 				begin = maze.chooseCell(floor),
 				finish = maze.chooseCell(floor);
 
 			let directions = ["north", "south", "east", "west"];
-
 			const Ragnar = new Entity(maze, begin);
-
-			console.log(begin);
-			console.log(finish);
-
-			console.log(maze.mapPrint);
-
 			const moveToExit = (start, end, breadcrumbs = []) => {
 				if (start === end) {
 					//console.log(`did it: ${breadcrumbs}`);

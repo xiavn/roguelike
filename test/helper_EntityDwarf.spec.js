@@ -31,6 +31,18 @@ describe("Dwarf", () => {
 			expect(map.cellsOfType("floor").length).to.eql(15);
 		});	
 	});
+	describe(".digToTunnel()", () => {
+		it("digs from a deadend until another tunnel is reached", () => {
+			const map = new Map(5,5);
+			const dwarf = new Dwarf(map, map.map[0][0]);
+			dwarf.dig(dwarf.compass.east, 4);
+			dwarf.cell = map.map[3][4];
+			dwarf.digToTunnel();
+			if (map.map[3][4].exits[0] === map.compass.direction.north) {
+				expect(map.map[3][0].exits.length).to.equal(3);
+			}
+		});
+	});
 	describe(".collapse(cell)", () => {
 		const map = new Map(20,20),
 			dwarf = new Dwarf(map, map.map[0][0]);
@@ -52,7 +64,7 @@ describe("Dwarf", () => {
 		});
 	});
 		
-	describe("checkRoute(breadcrumbs, blocked, randomness)", () => {
+	describe.skip("checkRoute(breadcrumbs, blocked, randomness)", () => {
 		it("fills every cell in the map with a floor tile", () => {
 			const map = new Map(10,10);
 			const cell = map.chooseCell();

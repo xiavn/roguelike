@@ -14,15 +14,17 @@ export default class Entity {
 		return this.cell.location[1];
 	}
 
-	assess(type = "rock", dir = this.direction) {
-		return this.dungeon.isInside(dir, this.cell) && this.dungeon.isType(type, dir, this.cell);
+	assess(types = ["rock"], dir = this.direction) {
+		return types.some((type) => {
+			return this.dungeon.isInside(dir, this.cell) && this.dungeon.isType(type, dir, this.cell);
+		});
 	}
 
 	move(dir = this.direction) {
 		let x = this.x + dir.location[0],
 			y = this.y + dir.location[1];
 
-		if (this.assess("floor", dir)) {
+		if (this.assess(["floor"], dir)) {
 			this.cell = this.dungeon.map[x][y];
 		}
 	}
