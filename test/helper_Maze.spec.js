@@ -50,11 +50,6 @@ describe("Maze", () => {
 			expect(moveToExit(begin, finish)).to.be.true;
 		});
 	});
-	describe("addRooms(number)", () => {
-		it("should add rooms equal to the number", () => {
-			
-		});
-	});
 		
 });
 	

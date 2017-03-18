@@ -93,5 +93,11 @@ describe("Map", () => {
 				.with.property("type","floor");
 		});	
 	});
+
+	describe("addRooms(number)", () => {
+		it("should add rooms equal to the number", () => {
+			
+		});
+	});
 		
 });
