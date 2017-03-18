@@ -10,3 +10,47 @@ body {
 .hidden {
 	display: none;
 }
+
+.dungeon-map {
+	display: flex;
+}
+
+.column {
+	display: flex;
+	flex-flow: column;
+}
+
+.cell {
+	width: 15px;
+	height: 15px;
+	border: 1px solid black;
+}
+
+.cell.rock {
+	background-color: black;
+}
+
+.cell.floor {
+	background-color: grey;
+	
+}
+
+.cell.floor.east {
+	border-right-color: grey;
+}
+
+.cell.floor.north {
+	border-top-color: grey;
+}
+
+.cell.floor.west {
+	border-left-color: grey;
+}
+
+.cell.floor.south {
+	border-bottom-color: grey;
+}
+
+.cell.true {
+	background-color: white;
+}
