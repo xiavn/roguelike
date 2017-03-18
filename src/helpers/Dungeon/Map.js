@@ -80,9 +80,7 @@ export default class DungeonMap {
 	chooseCell(list = []) {
 		if (list.length > 0) {
 			const n = Math.floor(Math.random() * list.length),
-				cell = list[n],
-				x = cell[0],
-				y = cell[1];
+				cell = list[n];
 			return cell;
 
 		} else {
