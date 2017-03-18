@@ -21,11 +21,15 @@ export default class Dwarf extends Entity {
 	}
 
 	digToTunnel() {
-		this.direction = this.compass.spin();
+		let blocked = [...this.cell.exits];
+		this.direction = this.compass.spin(blocked);
 		while(this.cell.exits.length < 2) {
-			console.log(this.cell);
 			if(this.dungeon.isInside(this.direction, this.cell)) {
 				this.dig(this.direction, 1, ["rock", "floor"]);
+				blocked = [this.compass[this.direction.opposite]];
+			} else {
+				blocked.push(this.direction);
+				this.direction = this.compass.spin(blocked);
 			}
 		}
 	}
@@ -114,7 +118,7 @@ export default class Dwarf extends Entity {
 		this.dungeon.deadEnds.forEach((cell) => {
 			if (diceRoller("d100") < chance) {
 				this.cell = cell;
-				this.digToTunnel;
+				this.digToTunnel();
 			}
 		});
 	}

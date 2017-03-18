@@ -36,11 +36,12 @@ describe("Dwarf", () => {
 			const map = new Map(5,5);
 			const dwarf = new Dwarf(map, map.map[0][0]);
 			dwarf.dig(dwarf.compass.east, 4);
-			dwarf.cell = map.map[3][4];
 			dwarf.digToTunnel();
-			if (map.map[3][4].exits[0] === map.compass.direction.north) {
-				expect(map.map[3][0].exits.length).to.equal(3);
-			}
+			map.cellsOfType("floor").forEach((cell) => {
+				if (cell.location !== [0][0]) {
+					expect(cell.exits.length).to.be.above(1);
+				}
+			});
 		});
 	});
 	describe(".collapse(cell)", () => {
