@@ -7,6 +7,7 @@ export default class DungeonMap {
 		this.height = height;
 		this.compass = new Compass();
 		this._map = this.createStartMap();
+		this.rooms = [];
 	}
 
 	get map() {
@@ -115,5 +116,9 @@ export default class DungeonMap {
 		//Place room at bestLocation
 		
 		//Add at least one door to an adjacent corridor or room
+	}
+
+	addRoom() {
+		//Add room to rooms array
 	}
 }
