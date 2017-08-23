@@ -1,16 +1,16 @@
-import React from "react";
-import { Header } from "./header/header";
-import Instructions from "./instructions";
-import Display from "./display/display";
-import Footer from "./footer";
+import React from "react"
+import { Header } from "./Header"
+import Instructions from "./Instructions"
+import Display from "./Display"
+import Footer from "./Footer"
 
 
 const Roguelike = () => 
 	<div className="roguelike">
 		<Header />
-		<Instructions />
 		<Display />
+		<Instructions />
 		<Footer />
-	</div>;
+	</div>
 
-export default Roguelike;
+export default Roguelike

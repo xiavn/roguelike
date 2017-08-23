@@ -1,8 +1,8 @@
-import React from "react";
+import React from "react"
 
 const DungeonInfo = () => 
 	<div>
 		DungeonInfo
-	</div>;
+	</div>
 
-export default DungeonInfo;
+export default DungeonInfo

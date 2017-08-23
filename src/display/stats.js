@@ -1,12 +1,12 @@
-import React from "react";
+import React from "react"
 
-import PlayerStats from "./playerStats";
-import EnemyStats from "./enemyStats";
+import PlayerStats from "../PlayerStats"
+import EnemyStats from "../EnemyStats"
 
 const Stats = () => 
 	<div>
 		<PlayerStats />
 		<EnemyStats />
-	</div>;
+	</div>
 
-export default Stats;
+export default Stats
